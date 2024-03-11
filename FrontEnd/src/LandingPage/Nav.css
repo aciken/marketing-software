@@ -1,0 +1,133 @@
+@font-face {
+    font-family: 'ProductSansRegular';
+    src: url('../assets/ProductSansRegular.ttf');
+}
+
+@font-face {
+    font-family: 'ProductSansBold';
+    src: url('../assets/ProductSansBold.ttf');
+}
+
+.hero {
+    background-image: url('../assets/BackGround-1.jpg');
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    font-family: 'ProductSansRegular';
+}
+
+.nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 32px;
+}
+
+.nav-right{
+    display: flex;
+    gap: 10px;
+
+}
+.nav-right li{
+    list-style: none;
+    padding: 10px;
+    cursor: pointer;
+    color: #000000;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+}
+
+.signup-btn{
+    background-color: #2563eb;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.hero-content{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15%;
+align-items: center;
+}
+
+.hero-text{
+    text-align: center;
+    color: rgb(41, 41, 41);
+    font-size: 4rem;
+    font-weight: 500;
+    font-family: 'ProductSansBold';
+}
+
+.hero-text-small{
+    text-align: center;
+    color: rgb(73, 73, 73);
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-family: 'ProductSansRegular';
+
+}
+
+.get-started-btn{
+    background-color: #2563eb;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 120px;
+    transition: box-shadow .3s ease;
+    font-size: 1rem;
+}
+
+.get-started-btn:hover{
+    -webkit-box-shadow:0px 0px 50px 12px rgba(53,159,252,0.35);
+    -moz-box-shadow: 0px 0px 50px 12px rgba(53,159,252,0.35);
+    box-shadow: 0px 0px 50px 12px rgba(53,159,252,0.35);
+
+}
+
+.name-card{
+    height: 330px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center ;
+    background-color:#334155;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.face{
+    width: 100px;
+    height: auto;
+    margin-top: 20px;
+}
+
+.card-text{
+    color: white;
+    text-align: center;
+    padding: 0 10%;
+    margin-bottom: 30px;
+}
+
+.card-name{
+    color: #0ea5e9;
+}
+
+.card-role{
+    color:rgb(102, 102, 102)
+}
+

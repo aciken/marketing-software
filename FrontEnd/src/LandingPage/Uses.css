@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'ProductSansRegular';
+    src: url('../assets/ProductSansRegular.ttf');
+}
+
+@font-face {
+    font-family: 'ProductSansBold';
+    src: url('../assets/ProductSansBold.ttf');
+}
+
+.uses{
+height: 100vh;
+background-color: #f1f0ff;
+}
