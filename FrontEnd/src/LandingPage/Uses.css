@@ -9,6 +9,68 @@
 }
 
 .uses{
-height: 100vh;
-background-color: #f3f3fc;
+    font-family: 'ProductSansRegular';
+    border-top: 1px solid rgb(214, 214, 214);
+    min-height:85vh ;
+    background-color: #f7f4ff;
+    background-size: cover;
+    background-position: center;
+    padding: 0 30%;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.uses h1{
+    color: rgb(59, 59, 59);
+    margin-top: 50px;
+}
+
+.cards-part{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+
+
+.name-card{
+
+    margin-top: 80px;
+    height: 330px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center ;
+    background-color:#f2eaff;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    margin-bottom: 20px;
+    cursor: default;
+    transition: .7s ease-in-out;
+}
+
+.name-card:hover{
+    scale: 105%;
+}
+
+.face{
+    width: 100px;
+    height: auto;
+    margin-top: 20px;
+}
+
+.card-text{
+    color: rgb(58, 58, 58);
+    text-align: center;
+    padding: 0 10%;
+    margin-bottom: 30px;
+}
+
+.card-name{
+    color: #3067ff;
+}
+
+.card-role{
+    color:rgb(102, 102, 102)
 }
