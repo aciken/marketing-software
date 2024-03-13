@@ -5,6 +5,7 @@ const cors = require('cors');
 const User = require('./DataBase/mongoDB');
 const {signup} = require('./Access/access');
 const {login} = require('./Access/access');
+const verify = require('./Verification/verification');
 
 
 app.use(cors());
@@ -21,6 +22,8 @@ app.get('/', (req, res) => {
 app.post('/signup', signup)
 
 app.post('/login', login);
+
+app.put('/verify', verify);
 
 
 

@@ -35,9 +35,9 @@ const login = async (req, res) => {
         const user = await User.findOne({ email, password });
 
         if(user){
-            res.json({message: "success"});
+            res.json(user);
         } else{
-            res.json({message: "failed"});
+            res.json("failed");
         }
     }catch (error) {
         res.status(400).json({ message: error.message });

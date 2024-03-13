@@ -11,6 +11,7 @@ export function Signup(){
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [verificationCode, setverificationCode] = useState('');
     const [verify, setVerify] = useState(false);
 
 
@@ -39,10 +40,40 @@ export function Signup(){
     
     }
 
+    const submitVerification = async (e) => {
+        e.preventDefault();
+
+        try{
+            await axios.put('http://localhost:3000/verify',{
+                email,
+                verificationCode
+            })
+            .then(res =>{
+                if(res.data.message === "success"){
+                    history('/main', {state:{id: email}})
+                }else{
+                    alert('Invalid Verification Code')
+                }
+            })
+        }catch(error){
+            console.log(error)
+        }
+
+
+
+        
+    }
+
     return(
         <div className="signup">
     {verify ? 
-            <div className='verify'>Verify your email</div> 
+            <div className='verify'>
+                <p>Verification code has been sent to your email</p>
+                <form onSubmit={submitVerification}  className='verify-form'>
+                    <input type="number" placeholder='Verification Code' onChange={(e) => setverificationCode(e.target.value)} />
+                    <button className='verify-confirm'>Submit</button>
+                </form>
+            </div> 
             : 
         <div>
             <form onSubmit={submit} className='signup-form'>
