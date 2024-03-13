@@ -23,7 +23,7 @@
 }
 
 .login-form{
-    width: 500px;
+    width: 450px;
     height: 300px;
     background-color: rgb(247, 240, 255);
     display: flex;
@@ -81,17 +81,14 @@ input[type="text"], input[type="password"], input[type="email"]{
     background-color: #bfcfff;
 }
 
-.acc-wrap{
-    width: 500px;
+
+
+.dont-have{
+    margin-top: 10px;
+    display: flex;
     justify-content: center;
 }
 
-.dont-have{
-    display: flex;
-    justify-content: end;
-    width: 100%;
-}
-
 .signup-here{
-    color: rgb(163, 114, 253);
+    color: rgb(114, 170, 253);
 }
