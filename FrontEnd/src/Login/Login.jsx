@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 export function Login(){
 
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -26,7 +27,7 @@ export function Login(){
                 console.log(res)
                 if(res.data !== "failed"){
                     if(res.data.verify === 1){
-                        history('/main', {state:{id: email}})
+                        navigate('/main', {state:{id: email}});
                     } else{
                         setVerify(true)
                     }
@@ -50,7 +51,7 @@ export function Login(){
             })
             .then(res =>{
                 if(res.data.message === "success"){
-                    history('/main', {state:{id: email}})
+                    navigate('/main', {state:{id: email}});
                 }else{
                     alert('Invalid Verification Code')
                 }

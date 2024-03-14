@@ -25,31 +25,38 @@
 }
 
 .nav-ul{
+    margin-left: 10%;
     display: flex;
     flex-direction: column;
+    justify-content: center ;
+height: 100%;
 
 }
 
 .nav-ul li{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     list-style: none;
-    width: 30%;
+    width: 100%;
+
     margin-left: 10px;
-    padding: 10px;
 
 }
 
-.nav-ul li:hover{
-    background-color: #f2f2f2;
-    border-radius: 10px;
 
-}
 
 .nav-ul li a{
+    width: 200px;
 display: flex;
 justify-content: space-between;
 align-items: center;
+padding: 10px;
+transition: .2s;
+}
+
+.nav-ul li a:hover{
+    background-color: #e0f2fe;
+    border-radius: 10px;
 
 }
 
@@ -60,5 +67,10 @@ align-items: center;
 }
 
 .active{
-    background-color: #f2f2f2;
+    background-color: #bae6fd;
+    border-radius: 10px;
+}
+
+.active:hover{
+    background-color: #67e8f9;
 }
