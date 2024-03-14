@@ -1,5 +1,9 @@
+import './main.css'
+import './main-affiliate.css'
 import { Link } from "react-router-dom"
 import { useState } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 export function MainAffiliate(){
 
@@ -8,8 +12,96 @@ export function MainAffiliate(){
     const [threeNavClass, setThreeNavClass] = useState('active');
     const [fourNavClass, setFourNavClass] = useState('');
 
+    const [affiliateName, setAffiliateName] = useState('')
+    const [productLink, setProductLink] = useState('')
+    const [affiliateDescription, setAffiliateDescription] = useState('')
+    const [price, setPrice] = useState('')
+    const [commissionRate, setCommissionRate] = useState('')
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
+
+
+    let id;
+
+    if(localStorage.getItem('id') === null){
+        window.location.href = '/login';
+    } else{
+        id = localStorage.getItem('id');
+    }
+
+    useEffect(() => {
+        const getLinks = async () => {
+            await axios.post('http://localhost:3000/affiliateLinks', {
+                id
+            })
+            .then(res => {
+                console.log(res.data.length)
+                for(let i = 0; i < res.data.length; i++){
+                    console.log(res.data[i].affiliateName, res.data[i].productLink, res.data[i].affiliateDescription, res.data[i].price, res.data[i].commissionRate, res.data[i].startDate, res.data[i].endDate)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        };
+    
+        getLinks();
+    }, []); 
+
+
+    const [showPopup, setShowPopup] = useState(false)
+
+    const linkPopup = () => {
+        setShowPopup(!showPopup)
+    }
+
+    const CreateAffiliate = (e) => {
+        e.preventDefault()
+        console.log('Creating Affiliate')
+        if( affiliateName !== '' && productLink !== '' && affiliateDescription !== '' && price !== '' && commissionRate !== '' && startDate !== '' && endDate !== ''){
+            axios.put('http://localhost:3000/affiliate', {
+                affiliateName,
+                productLink,
+                affiliateDescription,
+                price,
+                commissionRate,
+                startDate,
+                endDate,
+                id
+            })
+            .then(res => {
+                console.log(res)
+                setShowPopup(!showPopup)
+            })
+
+            
+        
+    } 
+}
+
     return(
         <div className="main">
+            {showPopup ? 
+                <div className='popup-content'>
+                    <div className='affiliate-card'>
+                        <h1>Create Affiliate Program</h1>
+                        <form onSubmit={CreateAffiliate}>
+                            <div className='name-link-flex'>
+                                <input className='affiliate-name' type='text' placeholder='Affiliate Name' onChange={(e) => setAffiliateName(e.target.value)} />
+                                <input className='product-link' type='text' placeholder='Product Link' onChange={(e) => setProductLink(e.target.value)}/>
+                            </div>
+                            <textarea name="" id="" cols="30" rows="10" placeholder='Affiliate Description' onChange={(e) => setAffiliateDescription(e.target.value)}></textarea>
+                            <div className='end-grid'>
+                                <input type='text' placeholder='Price' onChange={(e) => setPrice(e.target.value)} />
+                                <input type='text' placeholder='Commission Rate' onChange={(e) => setCommissionRate(e.target.value)} />
+                                <input type='text' placeholder='Start Date' onChange={(e) => setStartDate(e.target.value)} />
+                                <input type='text' placeholder='End Date'onChange={(e) => setEndDate(e.target.value)} />
+                            </div>
+                            <button className='affiliate-btn' type='submit'>Create</button>
+                        </form>
+                    </div>
+                </div> : null}
+             
         <div className='loged-nav'>
             <ul className='nav-ul'>
                 <li ><Link to="/main" className={oneNavClass}  href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>home</title><path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z" /></svg> <span>Home</span></Link></li>
@@ -19,7 +111,13 @@ export function MainAffiliate(){
             </ul>
         </div>
         <div className='main-part'>
-            <h1>Affiliate</h1>
+            <div className="main-affiliate">
+                <div className='add-link' onClick={linkPopup}>
+                    <p>Create Affiliate Program</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus-circle</title><path d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg>
+                </div>
+            </div>
+
         </div>
         </div>
     )

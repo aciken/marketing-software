@@ -6,6 +6,8 @@ const User = require('./DataBase/mongoDB');
 const {signup} = require('./Access/access');
 const {login} = require('./Access/access');
 const verify = require('./Verification/verification');
+const createAffiliateLink = require('./Affiliate/createAffiliateLink');
+const getLinks = require('./Affiliate/getLinks');
 
 
 app.use(cors());
@@ -24,6 +26,10 @@ app.post('/signup', signup)
 app.post('/login', login);
 
 app.put('/verify', verify);
+
+app.put('/affiliate', createAffiliateLink);
+
+app.post('/affiliateLinks', getLinks);
 
 
 

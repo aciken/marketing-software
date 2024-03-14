@@ -17,7 +17,11 @@ const UserSchema = new mongoose.Schema({
     verify:{
         type: Number,
         default: 0
-    }
+    },
+    links: {
+        type: Array,
+        default: []
+    },
     });
 
 

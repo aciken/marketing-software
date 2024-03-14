@@ -11,7 +11,14 @@ export function MainSettings(){
     const [fourNavClass, setFourNavClass] = useState('active');
 
 
-    const id = localStorage.getItem('id');
+
+    let id;
+
+    if(localStorage.getItem('id') === null){
+        window.location.href = '/login';
+    } else{
+        id = localStorage.getItem('id');
+    }
 
 
 
