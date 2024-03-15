@@ -15,13 +15,14 @@
     height: 200px;
     padding: 10px;
     border-radius: 10px;
-    background-color: #bae6fd;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     transition: .2s;
 }
 
 .add-link:hover{
-    background-color: #a2d3ee;
+    background-color: #fafafa;
+    scale: 102%;
 }
 
 .add-link svg{
@@ -45,6 +46,7 @@
 }
 
 .affiliate-card{
+    position: relative;
     background-color: white;
     height: 80%;
     width: 80%;
@@ -127,3 +129,52 @@
 .product-link{
     width: 50%;
 }
+
+.close-card{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.link-data-card{
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    transition: .2s;  
+}
+
+.link-data-card:hover{
+    background-color: #fafafa;
+
+}
+
+
+.affiliate-name{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.edit-btn{
+    width: 30px;
+    height: 30px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+    border: none;
+    border-radius: 5px;
+    color: rgb(46, 46, 46);
+    cursor: pointer;
+    transition: .1s;
+}
+
+.edit-btn:hover{
+    scale: 105%;
+}
+

@@ -1,6 +1,6 @@
 const User = require('../DataBase/mongoDB');
 
-const createAffiliateLink = async (req, res) => {
+const editAffialiateLink = async (req, res) => {
     const { 
         affiliateName, 
         productLink, 
@@ -30,7 +30,7 @@ const createAffiliateLink = async (req, res) => {
         return res.status(404).json({ message: 'User not found' });
     }
     
-    user.links.push(affiliateLink);
+    user.links[linkNumber] = affiliateLink;
     
     try {
         const updatedUser = await user.save();
@@ -41,4 +41,4 @@ const createAffiliateLink = async (req, res) => {
 }
 }
 
-module.exports = createAffiliateLink;
+module.exports = editAffialiateLink;

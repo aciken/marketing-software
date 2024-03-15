@@ -20,6 +20,10 @@ export function MainAffiliate(){
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
 
+    const [data, setData] = useState([]);
+    const [dataLength, setdataLength] = useState();
+
+
 
     let id;
 
@@ -35,10 +39,8 @@ export function MainAffiliate(){
                 id
             })
             .then(res => {
-                console.log(res.data.length)
-                for(let i = 0; i < res.data.length; i++){
-                    console.log(res.data[i].affiliateName, res.data[i].productLink, res.data[i].affiliateDescription, res.data[i].price, res.data[i].commissionRate, res.data[i].startDate, res.data[i].endDate)
-                }
+                setData(res.data)
+                setdataLength(res.data.length)
             })
             .catch(err => {
                 console.log(err)
@@ -49,16 +51,33 @@ export function MainAffiliate(){
     }, []); 
 
 
-    const [showPopup, setShowPopup] = useState(false)
+
+
+    const [showPopup, setShowPopup] = useState(false);
+    const [showEditPopup, setShowEditPopup] = useState(false);
+    const [editIndex, setEditIndex] = useState();
 
     const linkPopup = () => {
         setShowPopup(!showPopup)
     }
 
+    const editPopup = (index) => {
+        setShowEditPopup(!showEditPopup)
+        setEditIndex(index)
+    }
+
+    const handleChange = (e, field) => {
+        const newData = [...data];
+        newData[editIndex][field] = e.target.value;
+        setData(newData);
+    }
+
+
     const CreateAffiliate = (e) => {
         e.preventDefault()
         console.log('Creating Affiliate')
         if( affiliateName !== '' && productLink !== '' && affiliateDescription !== '' && price !== '' && commissionRate !== '' && startDate !== '' && endDate !== ''){
+            console.log(dataLength)
             axios.put('http://localhost:3000/affiliate', {
                 affiliateName,
                 productLink,
@@ -67,11 +86,13 @@ export function MainAffiliate(){
                 commissionRate,
                 startDate,
                 endDate,
-                id
+                id,
+                linkNumber: dataLength,
             })
             .then(res => {
                 console.log(res)
-                setShowPopup(!showPopup)
+                setShowPopup(!showPopup);
+                window.location.reload();
             })
 
             
@@ -79,11 +100,36 @@ export function MainAffiliate(){
     } 
 }
 
+const saveData = (e) => {
+    e.preventDefault()
+    console.log('Saving Data')
+    if( data[editIndex].affiliateName !== '' && data[editIndex].productLink !== '' && data[editIndex].affiliateDescription !== '' && data[editIndex].price !== '' && data[editIndex].commissionRate !== '' && data[editIndex].startDate !== '' && data[editIndex].endDate !== ''){
+        console.log(data[editIndex].affiliateName, data[editIndex].productLink, data[editIndex].affiliateDescription, data[editIndex].price, data[editIndex].commissionRate, data[editIndex].startDate, data[editIndex].endDate, id, editIndex)
+        axios.put('http://localhost:3000/affiliateEdit', {
+            affiliateName: data[editIndex].affiliateName,
+            productLink: data[editIndex].productLink,
+            affiliateDescription: data[editIndex].affiliateDescription,
+            price: data[editIndex].price,
+            commissionRate: data[editIndex].commissionRate,
+            startDate: data[editIndex].startDate,
+            endDate: data[editIndex].endDate,
+            id,
+            linkNumber: editIndex,
+        })
+        .then(res => {
+            console.log(res)
+            setShowEditPopup(!showEditPopup)
+        })
+    }
+
+}
+
     return(
         <div className="main">
             {showPopup ? 
                 <div className='popup-content'>
                     <div className='affiliate-card'>
+                        <p onClick={() => setShowPopup(false)} className='close-card'>x</p>
                         <h1>Create Affiliate Program</h1>
                         <form onSubmit={CreateAffiliate}>
                             <div className='name-link-flex'>
@@ -101,6 +147,28 @@ export function MainAffiliate(){
                         </form>
                     </div>
                 </div> : null}
+
+                {showEditPopup ?
+                 <div className='popup-content'>
+                 <div className='affiliate-card'>
+                     <p onClick={() => {setShowEditPopup(false); window.location.reload();}} className='close-card'>x</p>
+                     <h1>Create Affiliate Program</h1>
+                     <form onSubmit={saveData}>
+        <div className='name-link-flex'>
+            <input className='affiliate-name' type='text' placeholder='Affiliate Name' onChange={(e) => handleChange(e, 'affiliateName')} value={data[editIndex].affiliateName} />
+            <input className='product-link' type='text' placeholder='Product Link' onChange={(e) => handleChange(e, 'productLink')} value={data[editIndex].productLink}/>
+        </div>
+        <textarea name="" id="" cols="30" rows="10" placeholder='Affiliate Description' onChange={(e) => handleChange(e, 'affiliateDescription')} >{data[editIndex].affiliateDescription}</textarea>
+        <div className='end-grid'>
+            <input type='text' placeholder='Price' onChange={(e) => handleChange(e, 'price')} value={data[editIndex].price}  />
+            <input type='text' placeholder='Commission Rate' onChange={(e) => handleChange(e, 'commissionRate')} value={data[editIndex].commissionRate}/>
+            <input type='text' placeholder='Start Date' onChange={(e) => handleChange(e, 'startDate')} value={data[editIndex].startDate}/>
+            <input type='text' placeholder='End Date'onChange={(e) => handleChange(e, 'endDate')} value={data[editIndex].endDate} />
+        </div>
+        <button className='affiliate-btn' type='submit'>Save</button>
+    </form>
+                 </div>
+             </div> : null }
              
         <div className='loged-nav'>
             <ul className='nav-ul'>
@@ -112,6 +180,20 @@ export function MainAffiliate(){
         </div>
         <div className='main-part'>
             <div className="main-affiliate">
+
+
+        {data.map((item, index) => (
+          <div key={index} data-index={index} className='link-data-card'>
+            <h1 className='affiliate-name'>{item.affiliateName}</h1>
+            <div>
+                <p>Price: {item.price}</p>
+                <p>Commision: {item.commissionRate}</p>
+            </div>
+            <svg onClick={() => editPopup(index)} className='edit-btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
+          </div>
+        ))}
+
+
                 <div className='add-link' onClick={linkPopup}>
                     <p>Create Affiliate Program</p>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>plus-circle</title><path d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg>
