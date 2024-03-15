@@ -1,0 +1,8 @@
+.reviews{
+    border-top: 1px solid rgb(219, 219, 219);
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    background-image: url('../assets/BackGround-3.jpg');
+}

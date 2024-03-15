@@ -17,11 +17,11 @@
 }
 
 .loged-nav{
-    flex: 20%;
+    flex: 14%;
 }
 
 .main-part{
-    flex: 80%;
+    flex: 86%;
 }
 
 .nav-ul{
@@ -31,7 +31,7 @@
     flex-direction: column;
     justify-content:end;
     height: 100%;
-
+    border-right: 1px solid #b4b4b4;    
 }
 
 .nav-ul li{
@@ -68,7 +68,8 @@ transition: .2s;
 }
 
 .active{
-    background-color: #bae6fd;
+background-color: white;
+box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
     border-radius: 10px;
 }
 

@@ -1,5 +1,6 @@
 import {Nav} from './Nav.jsx'
 import {Uses} from './Uses.jsx'
+import { Reviews } from './Reviews.jsx';
 
 export function LandingPage() {
 
@@ -9,6 +10,7 @@ export function LandingPage() {
         <div>
             <Nav/>
             <Uses/>
+            <Reviews/>
         </div>
     )
 }
