@@ -1,4 +1,5 @@
 import './main.css'
+import './main-settings.css'
 import { useState } from 'react';
 import {Link} from "react-router-dom";
 
@@ -34,6 +35,7 @@ export function MainSettings(){
         </div>
         <div className='main-part'>
             <h1>Settings</h1>
+            <Link to="/" className='log-out-btn'>Log Out</Link>
         </div>
         </div>
     )
