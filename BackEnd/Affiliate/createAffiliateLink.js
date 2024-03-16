@@ -13,6 +13,8 @@ const createAffiliateLink = async (req, res) => {
         linkNumber
     } = req.body;
 
+    let affiliateUsers = [];
+
     const affiliateLink = {
         affiliateName,
         productLink,
@@ -21,7 +23,8 @@ const createAffiliateLink = async (req, res) => {
         commissionRate,
         startDate,
         endDate,
-        linkNumber
+        linkNumber,
+        affiliateUsers
     };
 
     const user = await User.findOne({ email: id });

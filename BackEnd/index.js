@@ -9,6 +9,7 @@ const verify = require('./Verification/verification');
 const createAffiliateLink = require('./Affiliate/createAffiliateLink');
 const getLinks = require('./Affiliate/getLinks');
 const editAffialiateLink = require('./Affiliate/affiliateEdit');
+const createUserLink = require('./Affiliate/createUserLink');
 
 
 app.use(cors());
@@ -33,6 +34,8 @@ app.put('/affiliate', createAffiliateLink);
 app.post('/affiliateLinks', getLinks);
 
 app.put('/affiliateEdit', editAffialiateLink);
+
+app.put('/affiliateUserLink', createUserLink);
 
 
 

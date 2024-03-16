@@ -193,7 +193,7 @@ const saveData = (e) => {
             </div>
             <a
         key={index} 
-            onClick={() => navigate(`/${item.affiliateName}`, { state: {data: item}})}
+            onClick={() => navigate(`/${item.affiliateName}`, { state: {data: item, id: id, index: index}})}
     >
         Link {index + 1}
         </a>
