@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    affiliatePeople:{
+        type: Array,
+        default: []
+    }
     });
 
 
