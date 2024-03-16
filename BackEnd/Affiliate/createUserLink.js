@@ -30,7 +30,7 @@ const createAffiliateLink = async (req, res) => {
         affPrice: price,
         start: startDate,
         end: endDate,
-        link: `${productLink}/${generateRandomString()} `    
+        link: `http://localhost:5173/*-${affiliateName}-${generateRandomString()} `    
     }
     
     console.log('started')

@@ -7,6 +7,7 @@ import {MainSettings} from "./Main/MainSettings.jsx";
 import {MainDashboard} from "./Main/MainDashboard.jsx";
 import { MainAffiliate } from "./Main/MainAffiliate.jsx";
 import {AffiliatePage} from "./LinkPage/linkPage.jsx";
+import {RedirectPage} from "./LinkPage/RedirectPage.jsx";
 
 
 function App() {
@@ -22,7 +23,9 @@ function App() {
    <Route exact path="/main/settings" element={<MainSettings/>} />
    <Route exact path="/main/dashboard" element={<MainDashboard/>} />
    <Route exact path="/main/affiliate-links" element={<MainAffiliate/>} />
+   <Route exact path="/*-:affiliateName-:extension" element={<RedirectPage />} />
    <Route exact path="/:name" element={<AffiliatePage />} />
+
    
 
 </Routes>
