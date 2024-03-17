@@ -9,9 +9,9 @@ const createAffiliateLink = async (req, res) => {
         commissionRate, 
         startDate, 
         endDate, 
-        id,
         linkNumber,
-        userEmail
+        userEmail,
+        userID
     } = req.body;
 
     function generateRandomString() {
@@ -24,18 +24,25 @@ const createAffiliateLink = async (req, res) => {
         return result;
     }
 
+    const genKey = generateRandomString();
+    
+
     let affiliateUserData = {
         userEmail,
         commission: commissionRate,
         affPrice: price,
         start: startDate,
         end: endDate,
-        link: `http://localhost:5173/*-${affiliateName}-${generateRandomString()} `    
+        id: userID,
+        genKey,
+        link: `http://localhost:5173/${affiliateName}/${userID}/${linkNumber}/${genKey}`,
+        linkRedirect: productLink   
     }
     
     console.log('started')
     
-    const user = await User.findOne({ email: id });
+    const user = await User.findOne({ 
+        userAffiliateID: userID });
     
     if(user){
         console.log(user.links[linkNumber]);

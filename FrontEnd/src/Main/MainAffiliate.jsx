@@ -126,6 +126,20 @@ const saveData = (e) => {
 
 }
 
+
+const navigateLink = async(e, name, index) => {
+    e.preventDefault();
+    console.log('clicked')
+    await axios.post('http://localhost:3000/allData',{
+        id
+    })
+    .then((res) => {
+        navigate(`/${name}/${res.data.userAffiliateID}/${index}`);
+        console.log(res.data);
+    })
+    }
+  
+
     return(
         <div className="main">
             {showPopup ? 
@@ -193,7 +207,8 @@ const saveData = (e) => {
             </div>
             <a
         key={index} 
-            onClick={() => navigate(`/${item.affiliateName}`, { state: {data: item, id: id, index: index}})}
+            // onClick={() => navigate(`/${item.affiliateName}/adrian/${index}`, { state: {data: item, id: id, index: index}})}
+            onClick={(e) =>navigateLink(e, item.affiliateName, index)}
     >
         Link {index + 1}
         </a>

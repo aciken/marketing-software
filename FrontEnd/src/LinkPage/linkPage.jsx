@@ -4,10 +4,11 @@ import axios from "axios";
 import './linkPage.css';
 
 export function AffiliatePage() {
-
     const location = useLocation();
     const data = location.state.data; 
-    console.log(data)
+    console.log(data);
+    const { name, id, index } = useParams();
+    console.log(name, id, index)
 
     const [userEmail, setUserEmail] = useState('');
 

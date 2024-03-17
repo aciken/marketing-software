@@ -1,4 +1,10 @@
 const User = require("../DataBase/mongoDB");
+const crypto = require('crypto');
+
+
+function generateId() {
+    return crypto.randomBytes(16).toString('hex');
+}
 
 function generateFourDigitNumber() {
     return Math.floor(1000 + Math.random() * 9000);
@@ -8,11 +14,14 @@ const signup = async (req, res) => {
     const { email, password } = req.body;
 
     const verifyCode = generateFourDigitNumber();
+
+
     
     const user = new User({
         email,
         password,
-        verify: verifyCode
+        verify: verifyCode,
+        userAffiliateID: generateId()
     });
     
     try {
