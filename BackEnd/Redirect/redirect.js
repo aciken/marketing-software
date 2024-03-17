@@ -8,8 +8,7 @@ const redirectUser = async (req, res) => {
     });
 
     if(user){
-        console.log(`User found: ${user}`);
-        console.log(`Looking for affiliate user with genKey: ${userID} in:`, user.links[index].affiliateUsers);
+        console.log(userID)
         const affiliateUser = user.links[index].affiliateUsers.find(user => user.genKey === userID);
         if(affiliateUser){
             console.log(`Affiliate user found: ${affiliateUser}`);

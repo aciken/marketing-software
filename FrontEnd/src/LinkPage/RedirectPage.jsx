@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export function RedirectPage() {
 
@@ -9,19 +10,22 @@ export function RedirectPage() {
         console.log(name, id, index, user);
 
         const redirect = async () => {
+
                 await axios.post('http://localhost:3000/redirect', {
-                        id,index,user
-        })
+                        id, index, userID: user
+                    })
         .then(res => {
                 console.log(res.data);
-                navigate(res.data);
+                window.location.href = res.data.linkRedirect
         })
         .catch(error => {
                 console.log(error);
         })
 }
 
-redirect();
+useEffect(() => {
+        redirect();
+    }, []); 
 
     
 return(
