@@ -36,7 +36,8 @@ const createAffiliateLink = async (req, res) => {
         id: userID,
         genKey,
         link: `http://localhost:5173/${affiliateName}/${userID}/${linkNumber}/${genKey}`,
-        linkRedirect: productLink   
+        linkRedirect: productLink,
+        redirects: 0 
     }
     
     console.log('started')

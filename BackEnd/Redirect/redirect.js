@@ -13,6 +13,9 @@ const redirectUser = async (req, res) => {
         if(affiliateUser){
             console.log(`Affiliate user found: ${affiliateUser}`);
             res.json(affiliateUser);
+            affiliateUser.redirects++;
+            user.markModified('links');
+            await user.save();
         } else{
             console.log(`Affiliate user not found`);
             res.json({message: 'User not found'})
