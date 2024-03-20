@@ -16,8 +16,10 @@ const editAffialiateLink = async (req, res) => {
         ButtonColor,
         ButtonTextColor,
         HeadlineText,
-        EmailSentText
+        EmailSentText,
+        affiliateUsers
     } = req.body;
+
 
     const affiliateLink = {
         affiliateName,
@@ -33,9 +35,11 @@ const editAffialiateLink = async (req, res) => {
         ButtonColor,
         ButtonTextColor,
         HeadlineText,
-        EmailSentText
+        EmailSentText,
+        affiliateUsers
     };
 
+    
     const user = await User.findOne({ email: id });
 
     if (!user) {

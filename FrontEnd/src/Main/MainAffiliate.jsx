@@ -136,7 +136,8 @@ const saveData = (e) => {
             ButtonColor: data[editIndex].ButtonColor,
             ButtonTextColor: data[editIndex].ButtonTextColor,
             HeadlineText: data[editIndex].HeadlineText,
-            EmailSentText: data[editIndex].EmailSentText
+            EmailSentText: data[editIndex].EmailSentText,
+            affiliateUsers: data[editIndex].affiliateUsers
         })
         .then(res => {
             console.log(res)
