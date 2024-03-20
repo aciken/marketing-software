@@ -26,6 +26,14 @@ export function MainAffiliate(){
     const [dataLength, setdataLength] = useState();
 
 
+    const [BackgroundColor, setBackgroundColor] = useState('#ffffff');
+    const [TextColor, setTextColor] = useState('#3b3b3b');
+    const [ButtonColor, setButtonColor] = useState('#3b3b3b');
+    const [ButtonTextColor, setButtonTextColor] = useState('#ffffff');
+    const [HeadlineText, setHeadlineText] = useState('Default handle');
+    const [EmailSentText, setEmailSentText] = useState('Default email sent text');
+
+
 
     let id;
 
@@ -90,6 +98,12 @@ export function MainAffiliate(){
                 endDate,
                 id,
                 linkNumber: dataLength,
+                BackgroundColor,
+                TextColor,
+                ButtonColor,
+                ButtonTextColor,
+                HeadlineText,
+                EmailSentText
             })
             .then(res => {
                 console.log(res)
@@ -117,6 +131,12 @@ const saveData = (e) => {
             endDate: data[editIndex].endDate,
             id,
             linkNumber: editIndex,
+            BackgroundColor: data[editIndex].BackgroundColor,
+            TextColor: data[editIndex].TextColor,
+            ButtonColor: data[editIndex].ButtonColor,
+            ButtonTextColor: data[editIndex].ButtonTextColor,
+            HeadlineText: data[editIndex].HeadlineText,
+            EmailSentText: data[editIndex].EmailSentText
         })
         .then(res => {
             console.log(res)
@@ -134,7 +154,7 @@ const navigateLink = async(e, name, index) => {
         id
     })
     .then((res) => {
-        navigate(`/${name}/${res.data.userAffiliateID}/${index}`);
+        navigator.clipboard.writeText(`http://localhost:5173/${name}/${res.data.userAffiliateID}/${index}`);
         console.log(res.data);
     })
     }
@@ -159,6 +179,39 @@ const navigateLink = async(e, name, index) => {
                                 <input type='text' placeholder='Start Date' onChange={(e) => setStartDate(e.target.value)} />
                                 <input type='text' placeholder='End Date'onChange={(e) => setEndDate(e.target.value)} />
                             </div>
+                            <div className='affiliate-design'>
+                                <p>Affiliate Registration Page design</p>
+                            <div className='design-flex'>
+                                <div className="design-color-part">
+                                <div className='design-one'>
+                                    <label htmlFor="background-color">Background Color</label>
+                                    <input type="color" name='background-color' defaultValue="#ffffff" onChange={(e) => setBackgroundColor(e.target.value)} />
+                            </div>
+                            <div className='design-one'>
+                                <label htmlFor="text-color">Text Color</label>
+                                 <input type="color" name='text-color' defaultValue="#3b3b3b" onChange={(e) => setTextColor(e.target.value)}/>
+                            </div>
+                            <div className='design-one'>
+                                <label htmlFor="button-color">Button Color</label>
+                                <input type="color" name='button-color' defaultValue="#3b3b3b" onChange={(e) => setButtonColor(e.target.value)} />
+                            </div>
+                            <div className='design-one'>
+                                <label htmlFor="button-text-color">Button Text Color</label>
+                                <input type="color" name='button-text-color' defaultValue="#ffffff" onChange={(e) => setButtonTextColor(e.target.value)} />
+                            </div>
+                                </div>
+                                 <div className="design-text-part">
+                                     <div className='design-one'>
+                                        <label htmlFor="headline-text">Headline Text</label>
+                                        <input type="text" name='headline-text' defaultValue="Default handle"  onChange={(e) => setHeadlineText(e.target.value)}/>
+                                     </div>
+                                     <div className='design-one'>
+                                        <label htmlFor="email-sent-text">Email Sent Text</label>
+                                        <input type="text" name='email-sent-text' defaultValue="Default email sent text" onChange={(e) => setEmailSentText(e.target.value)} />
+                                     </div>
+                                 </div>
+                            </div>
+                            </div>
                             <button className='affiliate-btn' type='submit'>Create</button>
                         </form>
                     </div>
@@ -181,6 +234,39 @@ const navigateLink = async(e, name, index) => {
             <input type='text' placeholder='Start Date' onChange={(e) => handleChange(e, 'startDate')} value={data[editIndex].startDate}/>
             <input type='text' placeholder='End Date'onChange={(e) => handleChange(e, 'endDate')} value={data[editIndex].endDate} />
         </div>
+        <div className='affiliate-design'>
+                                <p>Affiliate Registration Page design</p>
+                            <div className='design-flex'>
+                                <div className="design-color-part">
+                                <div className='design-one'>
+                                    <label htmlFor="background-color">Background Color</label>
+                                    <input type="color" name='background-color' value={data[editIndex].BackgroundColor} onChange={(e) => handleChange(e, 'BackgroundColor')}/>
+                            </div>
+                            <div className='design-one'>
+                                <label htmlFor="text-color">Text Color</label>
+                                 <input type="color" name='text-color' value={data[editIndex].TextColor} onChange={(e) => handleChange(e, 'TextColor')}/>
+                            </div>
+                            <div className='design-one'>
+                                <label htmlFor="button-color">Button Color</label>
+                                <input type="color" name='button-color' value={data[editIndex].ButtonColor} onChange={(e) => handleChange(e, 'ButtonColor')} />
+                            </div>
+                            <div className='design-one'>
+                                <label htmlFor="button-text-color">Button Text Color</label>
+                                <input type="color" name='button-text-color' value={data[editIndex].ButtonTextColor} onChange={(e) => handleChange(e, 'ButtonTextColor')} />
+                            </div>
+                                </div>
+                                 <div className="design-text-part">
+                                     <div className='design-one'>
+                                        <label htmlFor="headline-text">Headline Text</label>
+                                        <input type="text" name='headline-text' value={data[editIndex].HeadlineText}  onChange={(e) => handleChange(e, 'HeadlineText')}/>
+                                     </div>
+                                     <div className='design-one'>
+                                        <label htmlFor="email-sent-text">Email Sent Text</label>
+                                        <input type="text" name='email-sent-text' value={data[editIndex].EmailSentText} onChange={(e) => handleChange(e, 'EmailSentText')} />
+                                     </div>
+                                 </div>
+                            </div>
+                            </div>
         <button className='affiliate-btn' type='submit'>Save</button>
     </form>
                  </div>
@@ -205,14 +291,17 @@ const navigateLink = async(e, name, index) => {
                 <p>Price: {item.price}</p>
                 <p>Commision: {item.commissionRate}</p>
             </div>
-            <a
+            {/* <a
         key={index} 
             // onClick={() => navigate(`/${item.affiliateName}/adrian/${index}`, { state: {data: item, id: id, index: index}})}
-            onClick={(e) =>navigateLink(e, item.affiliateName, index)}
+            
     >
         Link {index + 1}
-        </a>
-            <svg onClick={() => editPopup(index)} className='edit-btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
+        </a> */}
+            <div className='svg-flex'>
+                <svg onClick={() => editPopup(index)} className='edit-btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pencil</title><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" /></svg>
+                <svg onClick={(e) =>navigateLink(e, item.affiliateName, index)}  className='edit-btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>content-copy</title><path d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z" /></svg>
+            </div>
           </div>
         ))}
 

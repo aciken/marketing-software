@@ -10,7 +10,13 @@ const editAffialiateLink = async (req, res) => {
         startDate, 
         endDate, 
         id,
-        linkNumber
+        linkNumber,
+        BackgroundColor,
+        TextColor,
+        ButtonColor,
+        ButtonTextColor,
+        HeadlineText,
+        EmailSentText
     } = req.body;
 
     const affiliateLink = {
@@ -21,7 +27,13 @@ const editAffialiateLink = async (req, res) => {
         commissionRate,
         startDate,
         endDate,
-        linkNumber
+        linkNumber,
+        BackgroundColor,
+        TextColor,
+        ButtonColor,
+        ButtonTextColor,
+        HeadlineText,
+        EmailSentText
     };
 
     const user = await User.findOne({ email: id });

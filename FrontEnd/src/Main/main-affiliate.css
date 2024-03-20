@@ -61,6 +61,7 @@
     justify-content: center;
     padding: 20px;
     gap: 5px;
+    height: 100%;
 }
 
 .affiliate-card textarea{
@@ -178,3 +179,47 @@
     scale: 105%;
 }
 
+.svg-flex{
+    display: flex;
+    gap: 20px;
+}
+
+.affiliate-design{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    height: 100%;
+}
+
+.design-flex{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+
+}
+
+.design-color-part{
+    display: flex;
+    gap: 30px;
+}
+
+.design-text-part{
+    display: flex;
+    gap: 40px;
+}
+
+.affiliate-design p{
+    font-size: 1.5rem;
+
+
+}
+
+.design-one{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+}
