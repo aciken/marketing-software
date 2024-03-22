@@ -5,3 +5,20 @@
     background-color: #d4ebff;
     border-radius: 10px;
 }
+
+.pod-links1{
+    animation: pod-links1 .2s ease-in-out;
+    opacity: 0;
+}
+
+@keyframes pod-links1 {
+    0%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100%{
+        opacity: 0;
+       transform: translateY(-40px);
+    }
+
+}
