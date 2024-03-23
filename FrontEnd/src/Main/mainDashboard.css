@@ -1,0 +1,66 @@
+.pod-links-show{
+    animation: pod-links2 .2s ease-in-out;
+    opacity: 0;
+}
+
+.pod-links-hide{
+    opacity: 0;
+}
+
+.arrow-svg1{
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    animation: svg-arrow-rotation1 .2s ease-in-out;
+}
+
+.arrow-svg-hide{
+    opacity: 0;
+}
+
+.affiliate-svg-show{
+    opacity: 1;
+
+}
+
+.affiliate-svg1{
+    opacity: 1;
+    animation: svg-affiliate-reverse1 .2s ease-in-out;
+    position: absolute;
+}
+
+@keyframes pod-links2 {
+    0%{
+        opacity: 1;
+       transform: translateY(0);
+    }
+    100%{
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+}
+
+
+@keyframes svg-arrow-rotation1{
+    0%{
+        transform: rotate(360deg);
+        opacity: 1;
+
+    }
+    100%{
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+}
+
+@keyframes svg-affiliate-reverse1{
+    0%{
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+    100%{
+        transform: rotate(360deg);
+        opacity: 1;
+
+    }
+}
