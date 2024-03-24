@@ -88,3 +88,47 @@ box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px
     margin-bottom: 30px;
 }
 
+.arrow-svg1{
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    animation: svg-arrow-rotation1 .2s ease-in-out;
+}
+
+.arrow-svg-hide{
+    opacity: 0;
+}
+
+.affiliate-svg-show{
+    opacity: 1;
+
+}
+
+.affiliate-svg1{
+    opacity: 1;
+    animation: svg-affiliate-reverse1 .2s ease-in-out;
+    position: absolute;
+}
+
+
+@keyframes svg-arrow-rotation{
+    0%{
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+    100%{
+        transform: rotate(360deg);
+        opacity: 1;
+    }
+}
+
+@keyframes svg-affiliate-reverse{
+    0%{
+        transform: rotate(360deg);
+        opacity: 1;
+    }
+    100%{
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+}

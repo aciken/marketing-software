@@ -13,6 +13,7 @@ const createUserLink = require('./Affiliate/createUserLink');
 const getAllData = require('./Affiliate/getAllData');
 const getDataFromUserID = require('./Affiliate/getDataFromUserID');
 const redirectUser = require('./Redirect/redirect');
+const oneData = require('./Affiliate/oneData');
 
 
 app.use(cors());
@@ -45,6 +46,8 @@ app.post('/allData', getAllData);
 app.post('/getDataFromUserID', getDataFromUserID);
 
 app.post('/redirect', redirectUser)
+
+app.post('/oneData', oneData);
 
 
 
