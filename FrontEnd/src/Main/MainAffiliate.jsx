@@ -170,7 +170,9 @@ const navigateLink = async( name, index) => {
 
 
     const showAffiliateFunct = async(index) => {
-        setShowSingleAffiliate(!ShowSingleAffiliate)
+        console.log(index)
+        navigate('/main/affiliate-links/affiliates' , {state:{index: index}})
+        // setShowSingleAffiliate(!ShowSingleAffiliate)
         setShowIndex(index)
         setPodLinks('pod-links')
         await axios.post('http://localhost:3000/oneData',{
