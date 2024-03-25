@@ -1,0 +1,12 @@
+.pod-links-stay{
+    opacity: 1;
+}
+
+.affiliate-svg-hide{
+    opacity: 0;
+    position: absolute;
+}
+
+.arrow-svg-show{
+    opacity: 1;
+}
