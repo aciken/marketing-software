@@ -6,8 +6,7 @@
 .affiliate-program-inputs{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
+    gap: 2rem;
     width: 80%;
 }
 
@@ -35,8 +34,10 @@
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-align-items: center;
+    align-items: center;
 }
+
+
 
 .program-one-affiliate input[type="text"]{
     width: 30%;
@@ -46,4 +47,31 @@ align-items: center;
     width: 30px;
     height: 30px;
     cursor: pointer;
+}
+
+.affiliate-program-topText{
+    transform: translateY(2rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.affiliate-program-topText div{
+width: 30%;
+}
+
+.save-changes{
+    padding: 6px 12px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    transition: .1s;
+}
+
+.save-changes:hover{
+    background-color: #0056b3;
 }

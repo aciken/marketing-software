@@ -1,6 +1,6 @@
 import './affiliateProgram.css'
 import { Link, useLocation } from "react-router-dom"
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from 'axios';
 
 export function AffiliateProgram(){
@@ -14,6 +14,14 @@ export function AffiliateProgram(){
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [userAffiliateID, setUserAffiliateID] = useState('')
+    const [affiliateUsers, setAffiliateUsers] = useState([])
+    const [backgorundColor, setBackgroundColor] = useState('')
+    const [buttonColor, setButtonColor] = useState('')
+    const [buttonTextColor, setButtonTextColor] = useState('')
+    const [headlineText, setHeadlineText] = useState('')
+    const [textColor, setTextColor] = useState('')
+    const [emailSentText, setEmailSentText] = useState('')
+
 
 
     const [isDisabled, setIsDisabled] = useState(true)
@@ -31,31 +39,68 @@ export function AffiliateProgram(){
         id = localStorage.getItem('id');
     }
 
-    const pageLoad = async() => {
-        console.log(id, index)
-        await axios.post('http://localhost:3000/oneData', {
-            id, index
-        })
-        .then(res => {
-            console.log(res.data)
-            setAffiliateName(res.data.affiliateName)
-            setProductLink(res.data.productLink)
-            setAffiliateDescription(res.data.affiliateDescription)
-            setPrice(res.data.price)
-            setCommissionRate(res.data.commissionRate)
-            setStartDate(res.data.startDate)
-            setEndDate(res.data.endDate)
-        })
-        await axios.post('http://localhost:3000/getUserID', {
-            id
-    })
-    .then(res => {
+    useEffect(() => {
+        const pageLoad = async() => {
+            console.log(id, index)
+            await axios.post('http://localhost:3000/oneData', {
+                id, index
+            })
+            .then(res => {
+                console.log(res.data)
+                setAffiliateName(res.data.affiliateName)
+                setProductLink(res.data.productLink)
+                setAffiliateDescription(res.data.affiliateDescription)
+                setPrice(res.data.price)
+                setCommissionRate(res.data.commissionRate)
+                setStartDate(res.data.startDate)
+                setEndDate(res.data.endDate)
+                setBackgroundColor(res.data.BackgroundColor)
+                setButtonColor(res.data.ButtonColor)
+                setButtonTextColor(res.data.ButtonTextColor)
+                setHeadlineText(res.data.HeadlineText)
+                setTextColor(res.data.TextColor) 
+                setEmailSentText(res.data.EmailSentText)
+                setAffiliateUsers(res.data.affiliateUsers)
+            })
+            await axios.post('http://localhost:3000/getUserID', {
+                id
+            })
+            .then(res => {
+                setUserAffiliateID(res.data)
+            })
+        }
+    
+        pageLoad();
+    }, []); 
 
-        setUserAffiliateID(res.data)
-    })
-    }
+    const saveData = (e) => {
+        e.preventDefault()
+        console.log('Saving Data')
+            axios.put('http://localhost:3000/affiliateEdit', {
+                affiliateName: affiliateName,
+                productLink: productLink,
+                affiliateDescription: affiliateDescription,
+                price: price,
+                commissionRate: commissionRate,
+                startDate: startDate,
+                endDate: endDate,
+                id: id,
+                linkNumber: index,
+                BackgroundColor: backgorundColor,
+                TextColor: textColor,
+                ButtonColor: buttonColor,
+                ButtonTextColor: buttonTextColor,
+                HeadlineText: headlineText,
+                EmailSentText: emailSentText,
+                affiliateUsers: affiliateUsers
+            })
+            .then(res => {
+                console.log(res)
 
-    pageLoad();
+            })
+        }
+    
+    
 
     return(
         <div className='main'>
@@ -92,53 +137,95 @@ export function AffiliateProgram(){
             </div>
         <div className="main-part affiliate-program">
 <div className="affiliate-program-inputs">
+
+            <div className='affiliate-program-topText'>
+                <div>
+                    <h1>Affiliate Program Settings</h1>
+                    <p>Here you can view and edit your affiliate program settings.</p>
+                </div>
+                
+                 <a href="#" className='save-changes' onClick={(e) => saveData(e)}>Save Changes</a>
+            </div>
     
-                <div className='program-one-affiliate'>
+                <div className='program-one-affiliate name'>
                     <label htmlFor="affiliate-name">Affiliate Program Name: </label>
-                    <input type="text" value={affiliateName} name="affiliate-name" disabled={isDisabled}/>
+                    <input type="text" value={affiliateName} name="affiliate-name" onChange={(e) => { setAffiliateName(e.target.value);}}/>
                   
                 </div>
     
                 <div className='desc-group'>
                     <label htmlFor="affiliate-description">Affiliate Program Description: </label>
-                    <textarea className='description-input' name="affiliate-description" id="" cols="30" rows="10" disabled={isDisabled} value={affiliateDescription}></textarea>
+                    <textarea className='description-input' name="affiliate-description" id="" cols="30" rows="10"value={affiliateDescription} onChange={(e) => setAffiliateDescription(e.target.value)}></textarea>
                  
 
                 </div>
     
                 <div className='program-one-affiliate'>
                     <label htmlFor="product-link">Product Link: </label>
-                    <input type="text" value={productLink} name="product-link" disabled={isDisabled}/>
+                    <input type="text" value={productLink} name="product-link" onChange={(e) => setProductLink(e.target.value)}/>
                     
 
                 </div>
     
                 <div className='program-one-affiliate'>
                     <label htmlFor="price">Price: </label>
-                    <input type="text" value={price} name="price" disabled={isDisabled}/>
+                    <input type="text" value={price} name="price" onChange={(e) => setPrice(e.target.value)} />
                    
 
                 </div>
     
                 <div className='program-one-affiliate'>
                     <label htmlFor="commission-rate">Commission Rate: </label>
-                    <input type="text" value={commissionRate} name="commission-rate" disabled={isDisabled}/>
+                    <input type="text" value={commissionRate} name="commission-rate" onChange={(e) => setCommissionRate(e.target.value)}/>
                    
                 </div>
     
                 <div className='program-one-affiliate'>
                     <label htmlFor="start-date">Start Date: </label>
-                    <input type="text" value={startDate} name="start-date" disabled={isDisabled}/>
+                    <input type="text" value={startDate} name="start-date" onChange={(e) => setStartDate(e.target.value)}/>
                     
                 </div>
     
                 <div className='program-one-affiliate'>
                     <label htmlFor="end-date">End Date: </label>
-                    <input type="text" value={endDate} name="end-date" disabled={isDisabled}/>
+                    <input type="text" value={endDate} name="end-date" onChange={(e) => setEndDate(e.target.value)}/>
                    
                 </div>
+
+                <div className='affiliate-design'>
+                                <p>Affiliate Registration Page design</p>
+                            <div className='design-flex'>
+                                <div className="design-color-part">
+                                <div className='design-one'>
+                                    <label htmlFor="background-color">Background Color</label>
+                                    <input type="color" name='background-color' value={backgorundColor} onChange={(e) => setBackgroundColor(e.target.value)} />
+                            </div>
+                            <div className='design-one'>
+                                <label htmlFor="text-color">Text Color</label>
+                                 <input type="color" name='text-color' value={textColor} onChange={(e) => setTextColor(e.target.value)}/>
+                            </div>
+                            <div className='design-one'>
+                                <label htmlFor="button-color">Button Color</label>
+                                <input type="color" name='button-color' value={buttonColor} onChange={(e) => setButtonColor(e.target.value)} />
+                            </div>
+                            <div className='design-one'>
+                                <label htmlFor="button-text-color">Button Text Color</label>
+                                <input type="color" name='button-text-color' value={buttonTextColor} onChange={(e) => setButtonTextColor(e.target.value)} />
+                            </div>
+                                </div>
+                                 <div className="design-text-part">
+                                     <div className='design-one'>
+                                        <label htmlFor="headline-text">Headline Text</label>
+                                        <input type="text" name='headline-text' value={headlineText} onChange={(e) => setHeadlineText(e.target.value)}/>
+                                     </div>
+                                     <div className='design-one'>
+                                        <label htmlFor="email-sent-text">Email Sent Text</label>
+                                        <input type="text" name='email-sent-text' value={emailSentText} onChange={(e) => setEmailSentText(e.target.value)}/>
+                                     </div>
+                                 </div>
+                            </div>
+                            </div>
     
-                <Link to={`/${affiliateName}/${userAffiliateID}/${index}`}><button>Get Link</button></Link>
                  <div>
                  <label htmlFor="registration-page">Affiliate Program Registration Link: </label>
                     <input className='registration-input' type="text" value={`http://localhost:5173/${affiliateName}/${userAffiliateID}/${index}`} name="registration-page" disabled/>

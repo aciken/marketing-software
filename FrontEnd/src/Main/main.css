@@ -38,6 +38,7 @@
     justify-content:space-between;
     height: 95vh;
     border-right: 1px solid #b4b4b4;    
+
 }
 
 .nav-ul li{
@@ -111,6 +112,8 @@ box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px
     animation: svg-affiliate-reverse1 .2s ease-in-out;
     position: absolute;
 }
+
+
 
 
 @keyframes svg-arrow-rotation{
