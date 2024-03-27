@@ -13,6 +13,7 @@ import {Affiliates} from "./Affiliate/Affiliates.jsx";
 import {AffiliateEmail} from "./Affiliate/AffiliateEmail.jsx";
 import {AffiliateTransactions} from "./Affiliate/AffiliateTransactions.jsx";
 import {AffiliateBalance} from "./Affiliate/AffiliateBalance.jsx";  
+import {AffiliateProgram} from "./Affiliate/AffiliateProgram.jsx";
 
 
 
@@ -34,6 +35,7 @@ function App() {
    <Route exact path="/main/affiliate-links/email" element={<AffiliateEmail/>} />
    <Route exact path="/main/affiliate-links/transactions" element={<AffiliateTransactions/>} />
    <Route exact path="/main/affiliate-links/balance" element={<AffiliateBalance/>} />
+   <Route exact path="/main/affiliate-links/affiliate-program" element={<AffiliateProgram/>} />
    <Route exact path="/:name/:id/:index" element={<LinkPageNew/>} />
     <Route exact path="/:name/:id/:index/:user" element={<RedirectPage/>} />
 

@@ -14,7 +14,7 @@ const getAllData = require('./Affiliate/getAllData');
 const getDataFromUserID = require('./Affiliate/getDataFromUserID');
 const redirectUser = require('./Redirect/redirect');
 const oneData = require('./Affiliate/oneData');
-
+const getUserID = require('./Affiliate/getUserID');
 
 app.use(cors());
 app.use(express.json());
@@ -48,6 +48,8 @@ app.post('/getDataFromUserID', getDataFromUserID);
 app.post('/redirect', redirectUser)
 
 app.post('/oneData', oneData);
+
+app.post('/getUserID', getUserID);
 
 
 

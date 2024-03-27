@@ -1,0 +1,49 @@
+.main-part.affiliate-program{
+    display: flex;
+    justify-content: center;
+}
+
+.affiliate-program-inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 80%;
+}
+
+.description-input{
+    resize: none;
+    width: 30%;
+
+}
+
+.desc-group{
+    border-top: solid 1px #c5c5c5;
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.registration-input{
+    width: 550px;
+}
+
+.program-one-affiliate{
+    border-top: solid 1px #c5c5c5;
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+align-items: center;
+}
+
+.program-one-affiliate input[type="text"]{
+    width: 30%;
+}
+
+.svg-edit-icon{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
