@@ -29,6 +29,7 @@ const createAffiliateLink = async (req, res) => {
 
     let affiliateUserData = {
         userEmail,
+        approved: false,
         commission: commissionRate,
         affPrice: price,
         start: startDate,

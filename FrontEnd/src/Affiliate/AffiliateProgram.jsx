@@ -192,7 +192,7 @@ export function AffiliateProgram(){
                    
                 </div>
 
-                <div className='affiliate-design'>
+                <div className='affiliate-design program'>
                                 <p>Affiliate Registration Page design</p>
                             <div className='design-flex'>
                                 <div className="design-color-part">
@@ -226,7 +226,7 @@ export function AffiliateProgram(){
                             </div>
                             </div>
     
-                 <div>
+                 <div className='affiliate-link-input'>
                  <label htmlFor="registration-page">Affiliate Program Registration Link: </label>
                     <input className='registration-input' type="text" value={`http://localhost:5173/${affiliateName}/${userAffiliateID}/${index}`} name="registration-page" disabled/>
                 </div>

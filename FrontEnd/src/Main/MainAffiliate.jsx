@@ -196,7 +196,6 @@ const navigateLink = async( name, index) => {
             {showPopup ? 
                 <div className='popup-content'>
                     <div className='affiliate-card'>
-                        <p onClick={() => setShowPopup(false)} className='close-card'>x</p>
                         <h1>Create Affiliate Program</h1>
                         <form onSubmit={CreateAffiliate}>
                             <div className='name-link-flex'>

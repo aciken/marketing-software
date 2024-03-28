@@ -65,7 +65,7 @@ const navigate = useNavigate();
         </div>
         <div className='main-part'>
             <h1>Settings</h1>
-            <Link to="/" className='log-out-btn'>Log Out</Link>
+            <Link to="/" onClick={() =>{localStorage.removeItem('id');} } className='log-out-btn'>Log Out</Link>
         </div>
         </div>
     )

@@ -75,3 +75,15 @@ width: 30%;
 .save-changes:hover{
     background-color: #0056b3;
 }
+
+.affiliate-design.program{
+    border-top: solid 1px #c5c5c5;
+    padding-top: 20px;
+}
+
+.affiliate-link-input{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-top: solid 1px #c5c5c5;
+}
