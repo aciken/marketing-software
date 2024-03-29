@@ -13,6 +13,7 @@ export function Affiliates(){
     const [userEmail, setUserEmail] = useState('');
 
     const [popup, setPopup] = useState(false);
+    const [removePopup, setRemovePopup] = useState(false);
 
 
 
@@ -79,10 +80,42 @@ export function Affiliates(){
         })
     }
 
+    const removeAffiiliateBtn = async() => {
+        await axios.put('http://localhost:3000/removeUser', {
+            id, index, userEmail
+        })
+        .then(res => {
+            console.log(res.data)
+            setRemovePopup(false)
+            window.location.reload();
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    const removeAffiliate = async(mail,e) => {
+        e.preventDefault();
+        setRemovePopup(true);
+        setUserEmail(mail);
+    }
+
 
 
     return (
         <div className='main'>
+            {removePopup ? (
+                <div className='popup approve'>
+                    <div className='popup-inner'>
+                        <h1>Remove User</h1>
+                        <p>Are you sure you want to remove this user?</p>
+                        <div className='popup-buttons'>
+                            <button className="approve-btn cancel" onClick={() => setRemovePopup(false)}>Cancel</button>
+                            <button className='approve-btn approve' onClick={() => removeAffiiliateBtn()}>Remove</button>
+                        </div>
+                    </div>
+                </div>
+            ) : null}
             {popup ? (
                 <div className='popup approve'>
                     <div className='popup-inner'>
@@ -138,7 +171,10 @@ export function Affiliates(){
                 <th>Email</th>
                 <th>Affiliate Price</th>
                 <th>Commission Rate</th>
+                <th>Sales</th>
+                <th>Total revenue</th>
                 <th>Approved</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -147,7 +183,10 @@ export function Affiliates(){
                     <td>{user.userEmail}</td>
                     <td>{user.affPrice}</td>
                     <td>{user.commission}</td>
+                    <td>{user.redirects}</td>
+                    <td>{user.redirects * user.affPrice}$</td>
                     {user.approved ? <td><p className='approved yes'>Approved</p></td> : <td><p className='approved not' onClick={() => setPopupFunct(user.userEmail)}>Not Approved</p></td>}
+                    <td><a href="#" onClick={(e) => removeAffiliate(user.userEmail,e)} className='remove-affiliate'>Remove</a></td>
                     {/* <td>{user.approved}</td> */}
                 </tr>
             ))}
