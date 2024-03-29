@@ -10,6 +10,7 @@ export function Affiliates(){
     const [affilaiteName, setAffilaiteName] = useState('');
     const [affiliateUsers, setAffiliateUsers] = useState([])
     const [addedUsers, setAddedUsers] = useState(false);
+    const [userEmail, setUserEmail] = useState('');
 
     const [popup, setPopup] = useState(false);
 
@@ -58,6 +59,26 @@ export function Affiliates(){
     }
     , [affiliateUsers])
 
+    const setPopupFunct = (mail) => {
+        setPopup(true);
+        setUserEmail(mail)
+    }
+
+    const approveFunct = async() => {
+
+        await axios.put('http://localhost:3000/approveUser', {
+            id, index, userEmail
+        })
+        .then(res => {
+            console.log(res.data)
+            setPopup(false)
+            window.location.reload();
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
 
 
     return (
@@ -69,7 +90,7 @@ export function Affiliates(){
                         <p>Are you sure you want to approve this user?</p>
                         <div className='popup-buttons'>
                             <button className="approve-btn cancel" onClick={() => setPopup(false)}>Cancel</button>
-                            <button className='approve-btn approve'>Approve</button>
+                            <button className='approve-btn approve' onClick={() => approveFunct()}>Approve</button>
                         </div>
                     </div>
                 </div>
@@ -126,7 +147,7 @@ export function Affiliates(){
                     <td>{user.userEmail}</td>
                     <td>{user.affPrice}</td>
                     <td>{user.commission}</td>
-                    {user.approved ? <td><p className='approved yes'>Approved</p></td> : <td><p className='approved not' onClick={() => setPopup(true)}>Not Approved</p></td>}
+                    {user.approved ? <td><p className='approved yes'>Approved</p></td> : <td><p className='approved not' onClick={() => setPopupFunct(user.userEmail)}>Not Approved</p></td>}
                     {/* <td>{user.approved}</td> */}
                 </tr>
             ))}
