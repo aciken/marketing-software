@@ -21,6 +21,7 @@ export function AffiliateProgram(){
     const [headlineText, setHeadlineText] = useState('')
     const [textColor, setTextColor] = useState('')
     const [emailSentText, setEmailSentText] = useState('')
+    const [autoApprove, setAutoApprove] = useState(false)
 
 
 
@@ -61,6 +62,7 @@ export function AffiliateProgram(){
                 setTextColor(res.data.TextColor) 
                 setEmailSentText(res.data.EmailSentText)
                 setAffiliateUsers(res.data.affiliateUsers)
+                setAutoApprove(res.data.autoApprove)
             })
             await axios.post('http://localhost:3000/getUserID', {
                 id
@@ -92,7 +94,8 @@ export function AffiliateProgram(){
                 ButtonTextColor: buttonTextColor,
                 HeadlineText: headlineText,
                 EmailSentText: emailSentText,
-                affiliateUsers: affiliateUsers
+                affiliateUsers: affiliateUsers,
+                autoApprove: autoApprove
             })
             .then(res => {
                 console.log(res)
@@ -189,6 +192,12 @@ export function AffiliateProgram(){
                 <div className='program-one-affiliate'>
                     <label htmlFor="end-date">End Date: </label>
                     <input type="text" value={endDate} name="end-date" onChange={(e) => setEndDate(e.target.value)}/>
+                   
+                </div>
+
+                <div className='program-one-affiliate'>
+                    <label htmlFor="auto-approve">Auto Approve Affiliates: </label>
+                    <input type="checkbox" checked={autoApprove} name="auto-approve" onChange={() => setAutoApprove(!autoApprove)}/>
                    
                 </div>
 

@@ -22,6 +22,7 @@ export function MainAffiliate(){
     const [commissionRate, setCommissionRate] = useState('')
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
+    const [autoApprove, setAutoApprove] = useState(false)
 
     const [copyLink, setCopyLink] = useState('')
 
@@ -111,7 +112,8 @@ export function MainAffiliate(){
                 ButtonColor,
                 ButtonTextColor,
                 HeadlineText,
-                EmailSentText
+                EmailSentText,
+                autoApprove
             })
             .then(res => {
                 console.log(res)
@@ -196,6 +198,7 @@ const navigateLink = async( name, index) => {
             {showPopup ? 
                 <div className='popup-content'>
                     <div className='affiliate-card'>
+                    <p onClick={() => {setShowPopup(false); window.location.reload();}} className='close-card'>x</p>
                         <h1>Create Affiliate Program</h1>
                         <form onSubmit={CreateAffiliate}>
                             <div className='name-link-flex'>
@@ -208,6 +211,10 @@ const navigateLink = async( name, index) => {
                                 <input type='text' placeholder='Commission Rate' onChange={(e) => setCommissionRate(e.target.value)} />
                                 <input type='text' placeholder='Start Date' onChange={(e) => setStartDate(e.target.value)} />
                                 <input type='text' placeholder='End Date'onChange={(e) => setEndDate(e.target.value)} />
+                                <label>
+        Auto Approve Affiliates:
+        <input type='checkbox' onChange={(e) => {if(e.target.value == 'on'){setAutoApprove(true)}else{setAutoApprove(false)}}} />
+    </label>
                             </div>
                             <div className='affiliate-design'>
                                 <p>Affiliate Registration Page design</p>
@@ -250,7 +257,7 @@ const navigateLink = async( name, index) => {
                 {showEditPopup ?
                  <div className='popup-content'>
                  <div className='affiliate-card'>
-                     <p onClick={() => {setShowEditPopup(false); window.location.reload();}} className='close-card'>x</p>
+
                      <h1>Create Affiliate Program</h1>
                      <form onSubmit={saveData}>
         <div className='name-link-flex'>

@@ -25,11 +25,25 @@ const createAffiliateLink = async (req, res) => {
     }
 
     const genKey = generateRandomString();
-    
 
-    let affiliateUserData = {
+
+       let affiliateUserDataFalse = {
         userEmail,
         approved: false,
+        commission: commissionRate,
+        affPrice: price,
+        start: startDate,
+        end: endDate,
+        id: userID,
+        genKey,
+        link: `http://localhost:5173/${affiliateName}/${userID}/${linkNumber}/${genKey}`,
+        linkRedirect: productLink,
+        redirects: 0 
+    } 
+
+    let affiliateUserDataTrue = {
+        userEmail,
+        approved: true,
         commission: commissionRate,
         affPrice: price,
         start: startDate,
@@ -46,18 +60,43 @@ const createAffiliateLink = async (req, res) => {
     const user = await User.findOne({ 
         userAffiliateID: userID });
     
-    if(user){
-        console.log(user.links[linkNumber]);
-        user.links[linkNumber].affiliateUsers.push(affiliateUserData);
-        try {
-            const updatedUser = await user.markModified('links');
-            await user.save();
-            res.status(200).json(updatedUser);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: error.message });
+        if(user){
+
+            if(user.links[linkNumber].autoApprove == false){
+                const { userEmail } = affiliateUserDataFalse;
+                const doesUserExist = user.links[linkNumber].affiliateUsers.some(element => element.userEmail === userEmail);
+                if(doesUserExist){
+                    res.status(200).json('User already exists');
+                } else {
+                    user.links[linkNumber].affiliateUsers.push(affiliateUserDataFalse);
+                    try {
+                        user.markModified('links');
+                        await user.save();
+                        res.status(200).json(user);
+                    } catch (error) {
+                        console.error(error);
+                        res.status(500).json({ message: error.message });
+                    }
+                }
+            } else{
+                const { userEmail } = affiliateUserDataTrue;
+                const doesUserExist = user.links[linkNumber].affiliateUsers.some(element => element.userEmail === userEmail);
+                if(doesUserExist){
+                    res.status(200).json('User already exists');
+                } else {
+                    user.links[linkNumber].affiliateUsers.push(affiliateUserDataTrue);
+                    try {
+                        user.markModified('links');
+                        await user.save();
+                        res.status(200).json(user);
+                    } catch (error) {
+                        console.error(error);
+                        res.status(500).json({ message: error.message });
+                    }
+                }
+            }
+
         }
-    }
 
 }
 

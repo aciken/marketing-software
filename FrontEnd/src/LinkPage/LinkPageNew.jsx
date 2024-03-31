@@ -25,6 +25,9 @@ export function LinkPageNew(){
     const [HeadlineText, setHeadlineText] = useState('Default handle');
     const [EmailSentText, setEmailSentText] = useState('Default email sent text');
 
+    const [sameEmail, setSameEmail] = useState(false);
+    const [sameEmailText, setSameEmailText] = useState('User already exists');
+
 
 
     const [userEmail, setUserEmail] = useState('');
@@ -72,7 +75,15 @@ export function LinkPageNew(){
         })
         .then((res) => {
             console.log(res.data);
-            setEmailSent(true);
+
+            if(res.data === 'User already exists'){
+                setSameEmail(true);
+                return;
+            }
+            else{
+                setEmailSent(true);
+            }
+
         })
         .catch((error) => {
             console.log(error);
@@ -85,6 +96,7 @@ export function LinkPageNew(){
         <div className="linkPage" style={{backgroundColor: BackgroundColor}}>
             <p className="link-heading" style={{color: TextColor}}>{HeadlineText}</p>
             <form className="link-register-input" onSubmit={createUserLink}>
+                {sameEmail ? <p>{sameEmailText}</p> : null}
                 {emailSent ? <p>{EmailSentText}</p> : null}
                 <label htmlFor="email">Email</label>
                 <input type="email" name="email" placeholder="Enter your Email" onChange={(e) => setUserEmail(e.target.value)}/>

@@ -16,7 +16,8 @@ const createAffiliateLink = async (req, res) => {
         ButtonColor,
         ButtonTextColor,
         HeadlineText,
-        EmailSentText
+        EmailSentText,
+        autoApprove
     } = req.body;
 
     const affiliateLink = {
@@ -34,7 +35,8 @@ const createAffiliateLink = async (req, res) => {
         ButtonTextColor,
         HeadlineText,
         EmailSentText,
-        affiliateUsers: [] 
+        affiliateUsers: [],
+        autoApprove,
     };
 
     const user = await User.findOne({ email: id });

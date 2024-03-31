@@ -12,8 +12,15 @@
 
 .description-input{
     resize: none;
-    width: 30%;
-
+    width: 30%; 
+    display: inline-block;
+    padding: 0 16px 0 12px;
+    line-height: 30px;
+    height: 200px;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    background-color: #fff;
+    color: rgb(8, 7, 7);
 }
 
 .desc-group{
@@ -40,7 +47,19 @@
 
 
 .program-one-affiliate input[type="text"]{
-    width: 30%;
+    width: 30%;   
+    display: inline-block;
+    padding: 0 16px 0 12px;
+    line-height: 30px;
+    height: 40px;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    background-color: #fff;
+    color: rgb(8, 7, 7);
+    box-shadow: none;
+    transition: border .1s linear,background-color .1s linear;
+
+
 }
 
 .svg-edit-icon{

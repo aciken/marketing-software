@@ -17,7 +17,8 @@ const editAffialiateLink = async (req, res) => {
         ButtonTextColor,
         HeadlineText,
         EmailSentText,
-        affiliateUsers
+        affiliateUsers,
+        autoApprove
     } = req.body;
 
 
@@ -36,7 +37,8 @@ const editAffialiateLink = async (req, res) => {
         ButtonTextColor,
         HeadlineText,
         EmailSentText,
-        affiliateUsers
+        affiliateUsers,
+        autoApprove,
     };
 
     
