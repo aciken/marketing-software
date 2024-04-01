@@ -1,0 +1,193 @@
+.main-part.email{
+    display: flex;
+    justify-content: center;
+
+}
+
+.title.email{
+    display: flex;
+    justify-content: center;
+    color: #2c2c2c;
+    font-size: 2em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #999999;
+}
+
+.email-box{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+}
+
+.submit-email{
+    cursor: pointer;
+    border: none;
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.submit-email:hover{
+    background-color: #2563eb;
+}
+
+.email-add-form{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.email-add-form input{
+    cursor: pointer;
+    background-color: #9c9c9c;
+    width: 30%;   
+    display: inline-block;
+    padding: 0 16px 0 12px;
+    line-height: 30px;
+    height: 40px;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    background-color: #fff;
+    color: rgb(122, 122, 122);
+    box-shadow: none;
+
+}
+
+.email-add-form input:hover{
+    color: rgb(8, 7, 7);
+}
+
+.popup.email{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.popup-box.email{
+    position: relative;
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    height: 70%;
+}
+
+.close-email-popup{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.popup-box-title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #2c2c2c;
+    padding: 0 20%;
+    gap: 10px;
+}
+
+.one-send-email{
+    border: 1px solid #b1b1b1;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+justify-content: center;
+}
+
+.one-send-email:hover{
+    background-color: #f3f4f6;
+}
+
+.one-wrapper{
+    border: 1px solid #b1b1b1;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.one-wrapper:hover{
+    background-color: #f3f4f6;
+}
+
+.delete-wrap{
+    border: 1px solid #f871719c;
+    padding: 6px 12px;
+    border-radius: 10px;
+}
+
+.delete-wrap:hover{
+    background-color: #f8717146;
+}
+
+.status-wrap{
+    font-size: .9em;
+}
+
+.status-wrap span{
+    font-weight: bold;
+    color: #2bbe61;
+}
+
+.add-input{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+}
+
+.add-input input{
+    width: 65%;
+}
+
+.add-input button{
+    cursor: pointer;
+    border: none;
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.add-input button.submit{
+    background-color: #3b82f6;
+}
+
+.add-input button.submit:hover{
+    background-color: #2563eb;
+}
+
+.add-input button.cancle{
+    background-color: #f87171;
+}
+
+.add-input button.cancle:hover{
+    background-color: #cf4a4a;
+}
+
+
+
+
+
+

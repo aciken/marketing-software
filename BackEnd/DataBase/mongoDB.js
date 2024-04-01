@@ -29,6 +29,10 @@ const UserSchema = new mongoose.Schema({
     userAffiliateID:{
       type: String,
       default: ''
+    },
+    sendEmails:{
+      type: Array,
+      default: ['adrianmarton2006@gmail.com']
     }
     });
 

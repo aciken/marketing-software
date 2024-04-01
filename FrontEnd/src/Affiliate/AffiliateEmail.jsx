@@ -1,11 +1,65 @@
 import { Link, useLocation } from "react-router-dom"
+import './affiliateEmail.css'
+import axios from 'axios'
+import { useEffect, useState } from "react"
 
 
 export function AffiliateEmail(){
 
 const location  = useLocation();
 
+const [sendEmail, setSendEmail] = useState('')
+const [allEmails, setAllEmails] = useState([])
+
+const [addInput, setAddInput] = useState(false)
+
+const [popup, setPopup] = useState(false)
+
+const [email, setEmail] = useState('')
+
     const index = location.state.index 
+
+    let id;
+
+    if(localStorage.getItem('id') === null){
+        window.location.href = '/login';
+    } else{
+        id = localStorage.getItem('id');
+    }
+
+
+    useEffect(() => {
+        const pageLoad = async() => {
+            await axios.post('http://localhost:3000/allData', {
+                id
+            })
+            .then(res => {
+                setAllEmails(res.data.sendEmails)
+                setSendEmail(res.data.sendEmails[0])
+            })
+        }
+    
+        pageLoad();
+    }, []); 
+
+    const addPopup = () => {
+        setPopup(!popup)
+        console.log(popup)
+    }
+
+    const addMail = async(e) => {
+        e.preventDefault();
+
+
+        await axios.put('http://localhost:3000/addMail', {
+            email,
+            id
+        })
+        .then(res => {
+            console.log(res.data)
+        })
+    }
+
 
     return(
         <div className='main'>
@@ -40,16 +94,44 @@ const location  = useLocation();
             <li ><Link to="/main/settings" className="setings-click" state={{from: "affiliate"}}  href="#">Settings</Link></li>
         </ul>
             </div>
-        <div className="main-part">
-            <h1>Affiliate Program Emails</h1>
+        <div className="main-part email">
+            {popup ? 
+            <div className="popup email">
+                <div className="popup-box email">
+                    <div className="popup-box-title">
+                        {addInput ? <form className="add-input" onSubmit={addMail}>
+                        <input type="email" placeholder="Email" required  onChange={(e) => setEmail(e.target.value)}/>
+                         <button type="submit" className="submit">Submit</button>
+                         <button onClick={() => setAddInput(false)} className="cancle">Cancle</button>
+                         </form> 
+                         : <p className="one-send-email" onClick={() => setAddInput(true)}>Add Email +</p>}
+                        
+                        <p onClick={() => setPopup(false)} className="close-email-popup">x</p>
+                        {allEmails.map((email, index) => {
+                            return <div key={index} data-index={index} className="one-wrapper">
+                            <div className="left-part">
+                                <p  key={index} onClick={() => setSendEmail(email)}>{email}</p>
+                                <p className="status-wrap">Status: <span>verified</span></p>
+                            </div>
+                                <p className="delete-wrap">Delete</p>
+                        </div>
+                        })}
+                    </div>
+                    <form className="popup-form">
+
+                    </form>
+                </div>
+                </div> : null}
+                
             <div className="email-box">
-                <h2>Send Affiliate Link Email</h2>
-                <form>
-                    <input type="email" placeholder="Email" />
-                    <button>Send</button>
+            <p className="title email">Affiliate Program Emails</p>
+                <form className="email-add-form">
+                    <label htmlFor="send-email">Send Email:</label>
+                    <input type="email" placeholder="Email" name="send-email"  value={sendEmail} readOnly={true} onFocus={(e) => e.target.blur()} onClick={(e) => addPopup()}/>
                 </form>
                 </div>
         </div>
         </div>
+
     )
 }
