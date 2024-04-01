@@ -3,11 +3,13 @@ import { useParams, useLocation } from "react-router-dom";
 import { useState } from "react";
 import './linkPage.css';
 
+
 export function LinkPageNew(){
 
     const { name, id, index } = useParams();
     console.log(name, id, index);
 
+    const [affiliateEmail, setAffiliateEmail] = useState('');
 
     const [productLink, setProductLink] = useState('');
     const [affiliateDescription, setAffiliateDescription] = useState('');
@@ -15,6 +17,7 @@ export function LinkPageNew(){
     const [commissionRate, setCommissionRate] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [autoApprove, setAutoApprove] = useState(false);
 
     const [emailSent, setEmailSent] = useState(false);
 
@@ -37,19 +40,20 @@ export function LinkPageNew(){
         name,id,index
     })
     .then(res =>{
-        console.log(res.data);
-        setProductLink(res.data.productLink);
-        setAffiliateDescription(res.data.affiliateDescription);
-        setPrice(res.data.price);
-        setCommissionRate(res.data.commissionRate);
-        setStartDate(res.data.startDate);
-        setEndDate(res.data.endDate);
-        setBackgroundColor(res.data.BackgroundColor);
-        setTextColor(res.data.TextColor);
-        setButtonColor(res.data.ButtonColor);
-        setButtonTextColor(res.data.ButtonTextColor);
-        setHeadlineText(res.data.HeadlineText);
-        setEmailSentText(res.data.EmailSentText);
+        setProductLink(res.data.link.productLink);
+        setAffiliateDescription(res.data.link.affiliateDescription);
+        setPrice(res.data.link.price);
+        setCommissionRate(res.data.link.commissionRate);
+        setStartDate(res.data.link.startDate);
+        setEndDate(res.data.link.endDate);
+        setBackgroundColor(res.data.link.BackgroundColor);
+        setTextColor(res.data.link.TextColor);
+        setButtonColor(res.data.link.ButtonColor);
+        setButtonTextColor(res.data.link.ButtonTextColor);
+        setHeadlineText(res.data.link.HeadlineText);
+        setEmailSentText(res.data.link.EmailSentText);
+        setAutoApprove(res.data.link.autoApprove);
+        setAffiliateEmail(res.data.email);
     })
         
     }
@@ -58,8 +62,8 @@ export function LinkPageNew(){
 
 
     const createUserLink = async (e) => {
-        console.log(name, productLink, affiliateDescription, price, commissionRate, startDate, endDate, index, userEmail, id)
         e.preventDefault();
+        console.log(name, productLink, affiliateDescription, price, commissionRate, startDate, endDate, index, userEmail, id)
         console.log('clicked')
         await axios.put('http://localhost:3000/affiliateUserLink', {
             affiliateName: name,
@@ -75,13 +79,20 @@ export function LinkPageNew(){
         })
         .then((res) => {
             console.log(res.data);
-
+            console.log(res.data)
             if(res.data === 'User already exists'){
+
                 setSameEmail(true);
                 return;
             }
             else{
+
+                axios.post('http://localhost:3000/affiliateLinkMail', {
+                    userEmail, name, id:affiliateEmail, index
+            })
+            .then(res =>{
                 setEmailSent(true);
+            })
             }
 
         })
@@ -99,7 +110,7 @@ export function LinkPageNew(){
                 {sameEmail ? <p>{sameEmailText}</p> : null}
                 {emailSent ? <p>{EmailSentText}</p> : null}
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" placeholder="Enter your Email" onChange={(e) => setUserEmail(e.target.value)}/>
+                <input type="email" name="email" placeholder="Enter your Email" onChange={(e) => setUserEmail(e.target.value)} required/>
                 <button className="register-btn" type="submit" style={{backgroundColor: ButtonColor, color: ButtonTextColor}}>Register</button>
             </form>
             <div>.</div>

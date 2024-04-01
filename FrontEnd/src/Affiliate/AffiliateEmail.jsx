@@ -41,7 +41,14 @@ const location  = useLocation();
         </ul>
             </div>
         <div className="main-part">
-            <h1>Emails</h1>
+            <h1>Affiliate Program Emails</h1>
+            <div className="email-box">
+                <h2>Send Affiliate Link Email</h2>
+                <form>
+                    <input type="email" placeholder="Email" />
+                    <button>Send</button>
+                </form>
+                </div>
         </div>
         </div>
     )

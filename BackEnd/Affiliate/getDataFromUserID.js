@@ -8,7 +8,7 @@ const getDataFromUserID = async (req, res) => {
 });
 
     if(user){
-        res.json(user.links[index]);
+        res.json({ link: user.links[index], email: user.email });
     } else{
         res.json({message: 'User not found'})
     }

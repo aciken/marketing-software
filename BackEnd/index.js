@@ -17,6 +17,7 @@ const oneData = require('./Affiliate/oneData');
 const getUserID = require('./Affiliate/getUserID');
 const approveUser = require('./Affiliate/approveUser');
 const removeUser = require('./Affiliate/removeAffiliate');
+const affiliateLinkMail = require('./Mails/affiliateLinkMail');
 
 app.use(cors());
 app.use(express.json());
@@ -56,6 +57,8 @@ app.post('/getUserID', getUserID);
 app.put('/approveUser', approveUser);
 
 app.put('/removeUser', removeUser);
+
+app.post('/affiliateLinkMail', affiliateLinkMail);
 
 
 
