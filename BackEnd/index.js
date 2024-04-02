@@ -19,6 +19,8 @@ const approveUser = require('./Affiliate/approveUser');
 const removeUser = require('./Affiliate/removeAffiliate');
 const affiliateLinkMail = require('./Mails/affiliateLinkMail');
 const addMail = require('./Mails/addMail');
+const changeEmail = require('./Mails/changeEmail');
+const deleteEmail = require('./Mails/deleteEmail');
 
 app.use(cors());
 app.use(express.json());
@@ -62,6 +64,10 @@ app.put('/removeUser', removeUser);
 app.post('/affiliateLinkMail', affiliateLinkMail);
 
 app.put('/addMail', addMail);
+
+app.put('/changeEmail', changeEmail);
+
+app.put('/deleteEmail', deleteEmail);
 
 
 

@@ -22,6 +22,8 @@ export function AffiliateProgram(){
     const [textColor, setTextColor] = useState('')
     const [emailSentText, setEmailSentText] = useState('')
     const [autoApprove, setAutoApprove] = useState(false)
+    const [emailIndex, setEmailIndex] = useState(0)
+    const [sendEmails, setSendEmails] = useState([])
 
 
 
@@ -63,6 +65,8 @@ export function AffiliateProgram(){
                 setEmailSentText(res.data.EmailSentText)
                 setAffiliateUsers(res.data.affiliateUsers)
                 setAutoApprove(res.data.autoApprove)
+                setEmailIndex(res.data.emailIndex)
+                setSendEmails(res.data.sendEmails)
             })
             await axios.post('http://localhost:3000/getUserID', {
                 id
@@ -95,7 +99,9 @@ export function AffiliateProgram(){
                 HeadlineText: headlineText,
                 EmailSentText: emailSentText,
                 affiliateUsers: affiliateUsers,
-                autoApprove: autoApprove
+                autoApprove: autoApprove,
+                emailIndex: emailIndex,
+                sendEmails: sendEmails
             })
             .then(res => {
                 console.log(res)

@@ -10,6 +10,7 @@ const location  = useLocation();
 
 const [sendEmail, setSendEmail] = useState('')
 const [allEmails, setAllEmails] = useState([])
+const [emailIndex, setEmailIndex] = useState(0)
 
 const [addInput, setAddInput] = useState(false)
 
@@ -34,13 +35,16 @@ const [email, setEmail] = useState('')
                 id
             })
             .then(res => {
-                setAllEmails(res.data.sendEmails)
-                setSendEmail(res.data.sendEmails[0])
+                setEmailIndex(res.data.links[index].emailIndex)
+                setAllEmails(res.data.links[index].sendEmails)
+                setSendEmail(res.data.links[index].sendEmails[res.data.links[index].emailIndex])      
             })
         }
     
         pageLoad();
     }, []); 
+
+    
 
     const addPopup = () => {
         setPopup(!popup)
@@ -51,14 +55,84 @@ const [email, setEmail] = useState('')
         e.preventDefault();
 
 
+
         await axios.put('http://localhost:3000/addMail', {
             email,
-            id
+            id,
+            index
         })
         .then(res => {
+            axios.post('http://localhost:3000/allData', {
+                id
+            })
+            .then(res =>{
+                setAddInput(false)
+                setAllEmails(res.data.links[index].sendEmails)
+            })
             console.log(res.data)
         })
-    }
+
+        }
+    
+        const changeEmail = async(eIndex,e) => {
+
+   if(e.target.textContent !== "Delete"){
+            setEmailIndex()
+            setSendEmail(allEmails[eIndex])
+            setEmailIndex(eIndex)
+
+            await axios.put('http://localhost:3000/changeEmail', {
+                eIndex,
+                index,
+                id
+            })
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => console.log(err))
+        }
+        }
+
+        const deleteEmail = async(eIndex) => {
+
+
+            if(eIndex === emailIndex){
+                console.log("Can't delete this email, it's in use")
+            } else if(eIndex == 0){
+                console.log("Can't delete the default email")
+            }
+            else{
+
+                await axios.put('http://localhost:3000/deleteEmail', {
+                    eIndex,
+                    index,
+                    id
+                })
+                .then(res => {
+                    console.log(eIndex, emailIndex)
+                    if(eIndex < emailIndex){
+                        setEmailIndex(emailIndex - 1)
+                        axios.put('http://localhost:3000/changeEmail', {
+                            eIndex: emailIndex - 1,
+                            index,
+                            id
+                        })
+                        .then(res => {
+                            console.log(res.data)
+                        })
+                        .catch(err => console.log(err))
+                    }
+                    setAllEmails(res.data)
+                    console.log(res.data)
+                })   
+                .catch(err => console.log(err))
+            }
+
+        }
+            
+        
+        
+
 
 
     return(
@@ -100,7 +174,7 @@ const [email, setEmail] = useState('')
                 <div className="popup-box email">
                     <div className="popup-box-title">
                         {addInput ? <form className="add-input" onSubmit={addMail}>
-                        <input type="email" placeholder="Email" required  onChange={(e) => setEmail(e.target.value)}/>
+                        <input  type="email" placeholder="Email" required  onChange={(e) => setEmail(e.target.value)}/>
                          <button type="submit" className="submit">Submit</button>
                          <button onClick={() => setAddInput(false)} className="cancle">Cancle</button>
                          </form> 
@@ -108,12 +182,12 @@ const [email, setEmail] = useState('')
                         
                         <p onClick={() => setPopup(false)} className="close-email-popup">x</p>
                         {allEmails.map((email, index) => {
-                            return <div key={index} data-index={index} className="one-wrapper">
+                            return <div key={index} data-index={index} className="one-wrapper" onClick={(e) => changeEmail(index,e)}>
                             <div className="left-part">
                                 <p  key={index} onClick={() => setSendEmail(email)}>{email}</p>
                                 <p className="status-wrap">Status: <span>verified</span></p>
                             </div>
-                                <p className="delete-wrap">Delete</p>
+                                <p className="delete-wrap" onClick={() => deleteEmail(index)}>Delete</p>
                         </div>
                         })}
                     </div>

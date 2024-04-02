@@ -84,6 +84,7 @@
     border: 1px solid #888;
     width: 50%;
     height: 70%;
+    animation: slideInFromLeft 0.2s ease-in-out;
 }
 
 .close-email-popup{
@@ -150,7 +151,7 @@ justify-content: center;
 
 .add-input{
     display: flex;
-    gap: 20px;
+    gap: 5px;
     justify-content: space-between;
     align-items: center;
     width: 100%;
@@ -158,7 +159,7 @@ justify-content: center;
 }
 
 .add-input input{
-    width: 65%;
+    width: 70%;
 }
 
 .add-input button{
@@ -186,6 +187,28 @@ justify-content: center;
     background-color: #cf4a4a;
 }
 
+input[type="email"]{
+    background-color: #9c9c9c; 
+    display: inline-block;
+    padding: 0 16px 0 12px;
+    line-height: 30px;
+    height: 40px;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    background-color: #fff;
+    color: rgb(122, 122, 122);
+    box-shadow: none;
+}
+
+
+@keyframes slideInFromLeft {
+    0% {
+        scale: 0;
+    }
+    100% {
+        scale: 1;
+    }
+}
 
 
 

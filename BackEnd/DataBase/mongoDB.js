@@ -30,10 +30,6 @@ const UserSchema = new mongoose.Schema({
       type: String,
       default: ''
     },
-    sendEmails:{
-      type: Array,
-      default: ['adrianmarton2006@gmail.com']
-    }
     });
 
 
