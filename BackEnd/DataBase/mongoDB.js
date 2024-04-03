@@ -30,6 +30,10 @@ const UserSchema = new mongoose.Schema({
       type: String,
       default: ''
     },
+    sendMails:{
+        type: Array,
+        default: []
+    },
     });
 
 

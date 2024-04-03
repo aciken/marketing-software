@@ -94,6 +94,17 @@
     cursor: pointer;
 }
 
+.close-email-popup svg{
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    transform: translate(10px, -3px);
+
+}
+
 .popup-box-title{
     display: flex;
     flex-direction: column;
@@ -217,6 +228,14 @@ input[type="email"]{
     background-color: #fff;
     color: rgb(122, 122, 122);
     box-shadow: none;
+}
+
+.popup-box.email form{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 

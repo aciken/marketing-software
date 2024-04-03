@@ -21,6 +21,10 @@ const affiliateLinkMail = require('./Mails/affiliateLinkMail');
 const addMail = require('./Mails/addMail');
 const changeEmail = require('./Mails/changeEmail');
 const deleteEmail = require('./Mails/deleteEmail');
+const VerificationEmail = require('./Mails/senderVerifycation');
+const addMailID = require('./Mails/addMailID');
+const getEmailFromID = require('./Mails/getEmailFromID');
+
 
 app.use(cors());
 app.use(express.json());
@@ -68,6 +72,14 @@ app.put('/addMail', addMail);
 app.put('/changeEmail', changeEmail);
 
 app.put('/deleteEmail', deleteEmail);
+
+app.post('/VerificationEmail', VerificationEmail);
+
+app.put('/addMailID', addMailID);
+
+app.post('/getEmailFromID', getEmailFromID);
+
+
 
 
 

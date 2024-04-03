@@ -8,7 +8,8 @@ const addMail = async (req, res) => {
     try {
         const user = await User.findOne({ email:id });
         if(user){
-            if (!user.links[index].sendEmails.includes(email)) {
+            console.log(user.links[index].sendEmails, email)
+            if (!user.links[index].sendEmails.some(([emailInArray]) => emailInArray === email)) {
                 user.markModified('links');
                 user.links[index].sendEmails.push(emailArray);
                 await user.save();

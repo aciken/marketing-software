@@ -12,11 +12,33 @@ const [sendEmail, setSendEmail] = useState('')
 const [allEmails, setAllEmails] = useState([])
 const [emailIndex, setEmailIndex] = useState(0)
 
+const [verifyEmail, setVerifyEmail] = useState(false)
+
 const [addInput, setAddInput] = useState(false)
 
 const [popup, setPopup] = useState(false)
 
 const [email, setEmail] = useState('')
+
+const [allEmailsID, setAllEmailsID] = useState([])
+
+
+
+//verify email
+
+const [nickname, setNickname] = useState('')
+const [fromEmail, setFromEmail] = useState('')
+const [fromName, setFromName] = useState('')
+const [replyTo, setReplyTo] = useState('')
+const [replyToName, setReplyToName] = useState('')
+const [address, setAddress] = useState('')
+const [address2, setAddress2] = useState('')
+const [country, setCountry] = useState('')
+const [city, setCity] = useState('')
+const [zip, setZip] = useState('')
+
+
+//verify email
 
     const index = location.state.index 
 
@@ -35,10 +57,19 @@ const [email, setEmail] = useState('')
                 id
             })
             .then(res => {
+                console.log(res.data.sendmails)
+                setAllEmailsID(res.data.sendMails)
                 setEmailIndex(res.data.links[index].emailIndex)
-                setAllEmails(res.data.links[index].sendEmails)
                 console.log(res.data.links[index].sendEmails)
-                setSendEmail(res.data.links[index].sendEmails[res.data.links[index].emailIndex][0])      
+                setSendEmail(res.data.links[index].sendEmails[res.data.links[index].emailIndex][0])    
+                
+                axios.post('http://localhost:3000/getEmailFromID', {
+                    id
+                })  
+                .then(res => {
+                    console.log(res.data) 
+                    setAllEmails(res.data)
+            })
             })
         }
     
@@ -57,30 +88,53 @@ const [email, setEmail] = useState('')
 
 
 
-        await axios.put('http://localhost:3000/addMail', {
-            email,
-            id,
-            index
+        await axios.post('http://localhost:3000/VerificationEmail', {
+            id,index,nickname,fromEmail,fromName,replyTo,replyToName,address,address2,country,city,zip,email
         })
         .then(res => {
-            axios.post('http://localhost:3000/allData', {
-                id
+            console.log(res.data)
+            const emailID = res.data.id
+            axios.put('http://localhost:3000/addMailID', {
+                id,index,emailID
             })
             .then(res =>{
-                setAddInput(false)
-                setAllEmails(res.data.links[index].sendEmails)
+                console.log(res.data);
             })
-            console.log(res.data)
+            
         })
+        .catch(err => console.log(err))
+    }
 
-        }
+
+
+        // await axios.put('http://localhost:3000/addMail', {
+        //     id,index,nickname,fromEmail,fromName,replyTo,replyToName,address,address2,country,city,zip,email
+        // })
+        // .then(res => {
+    
+        //     axios.post('http://localhost:3000/allData', {
+        //         id
+        //     })
+        //     .then(res =>{
+        //         setAddInput(false)
+        //         setAllEmails(res.data.links[index].sendEmails)
+        //     })
+        //     console.log(res.data)
+        // })
+
+        
     
         const changeEmail = async(eIndex,e) => {
 
+
+            console.log(e.target.textContent)
    if(e.target.textContent !== "Delete"){
-            setEmailIndex()
-            setSendEmail(allEmails[eIndex][0])
-            setEmailIndex(eIndex)
+
+
+            console.log(allEmails[eIndex][1])
+
+                console.log(allEmails[eIndex][1])
+            if(allEmails[eIndex][1] !== false){
 
             await axios.put('http://localhost:3000/changeEmail', {
                 eIndex,
@@ -88,9 +142,12 @@ const [email, setEmail] = useState('')
                 id
             })
             .then(res => {
+                setSendEmail(allEmails[eIndex][0])
+                setEmailIndex(eIndex)
                 console.log(res.data)
             })
             .catch(err => console.log(err))
+        }
         }
         }
 
@@ -135,7 +192,7 @@ const [email, setEmail] = useState('')
         
 
 
-
+    
     return(
         <div className='main'>
         <div className='loged-nav'>
@@ -172,32 +229,68 @@ const [email, setEmail] = useState('')
         <div className="main-part email">
             {popup ? 
             <div className="popup email">
-                <div className="popup-box email">
+                {!verifyEmail ? <div className="popup-box email">
                     <div className="popup-box-title">
                         {addInput ? <form className="add-input" onSubmit={addMail}>
                         <input  type="email" placeholder="Email" required  onChange={(e) => setEmail(e.target.value)}/>
                          <button type="submit" className="submit">Submit</button>
                          <button onClick={() => setAddInput(false)} className="cancle">Cancle</button>
                          </form> 
-                         : <p className="one-send-email" onClick={() => setAddInput(true)}>Add Email +</p>}
+                         : <p className="one-send-email" onClick={() => setVerifyEmail(true)}>Add Email +</p>}
                         
                         <p onClick={() => setPopup(false)} className="close-email-popup">x</p>
-                        {allEmails.map((email, index) => {
+
+
+
+                    {allEmails.map((email, index) => {
+                        return <div key={index} data-index={index} className="one-wrapper">
+                        <div className="left-part">
+                            <p  key={index}>{email.from.email}</p>
+                           {email.verified.status ? <span className="verified">verified</span> : <span className="unverified">unverified</span> }
+                        
+                        </div>
+
+                            <p className="delete-wrap" onClick={() => deleteEmail(index)}>Delete</p>
+                    </div>
+                    })}
+
+                        {/* {allEmailsID.map((email, index) => {
                             return <div key={index} data-index={index} className="one-wrapper" onClick={(e) => changeEmail(index,e)}>
                             <div className="left-part">
-                                <p  key={index} onClick={() => setSendEmail(email)}>{email[0]}</p>
+                                <p  key={index}>{email}</p>
                                 <p className="status-wrap">Status: {email[1] ? <span className="verified">verified</span> : <span className="unverified">unverified</span>} {index === emailIndex ? <span className="in-use-span">In Use</span> : null}</p>
                             
                             </div>
 
                                 <p className="delete-wrap" onClick={() => deleteEmail(index)}>Delete</p>
                         </div>
-                        })}
+                        })} */}
                     </div>
                     <form className="popup-form">
 
                     </form>
-                </div>
+                </div> : 
+                <div className="popup-box email">
+                    <p className="verify-email">Verify Email</p>
+                    <form onSubmit={addMail}>
+                    <input type="text" placeholder="Nickname" onChange={(e) => setNickname(e.target.value)} required/>
+                    <input type="email" name="" id="" placeholder="Email" onChange={(e) => setFromEmail(e.target.value)} required/>
+                    <input type="text" placeholder="From Name" onChange={(e) => setFromName(e.target.value)} required/>
+                    <input type="email" placeholder="Reply To" onChange={(e) => setReplyTo(e.target.value)} required/>
+                    <input type="text" placeholder="Reply To Name" onChange={(e) => setReplyToName(e.target.value)} required/>
+                    <input type="text" placeholder="Address" onChange={(e) => setAddress(e.target.value)} required/>
+                    <input type="text" placeholder="Address 2" onChange={(e) => setAddress2(e.target.value)} />
+                    <input type="text" placeholder="Country" onChange={(e) => setCountry(e.target.value)} required/>
+                    <input type="text" placeholder="City" onChange={(e) => setCity(e.target.value)} required/>
+                    <input type="text" placeholder="Zip" onChange={(e) => setZip(e.target.value)} required />
+                    <button type="Submit">Submit</button>
+                    </form>
+                    <p className="verify-email-text">We have sent a verification email to {sendEmail}. Please verify your email address to use it.</p>
+
+                    <p onClick={() => setVerifyEmail(false)} className="close-email-popup"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>arrow-left-thin</title><path d="M10.05 16.94V12.94H18.97L19 10.93H10.05V6.94L5.05 11.94Z" /></svg></p>
+                </div> }
+
+    
                 </div> : null}
                 
             <div className="email-box">
