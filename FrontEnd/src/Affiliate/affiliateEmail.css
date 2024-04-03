@@ -147,7 +147,26 @@ justify-content: center;
 .status-wrap span{
     font-weight: bold;
     color: #2bbe61;
+    padding: 5px;
 }
+
+.status-wrap span.unverified{
+    color: #ef4444;
+
+}
+
+.status-wrap span.unverified:hover{
+    color: #dc2626;
+    background-color: #d1d1d1;
+    border-radius: 5px;
+
+}
+
+.status-wrap span.in-use-span{
+    color: #1e293b;
+    margin-left: 10px;
+}
+
 
 .add-input{
     display: flex;

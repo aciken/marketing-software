@@ -37,7 +37,8 @@ const [email, setEmail] = useState('')
             .then(res => {
                 setEmailIndex(res.data.links[index].emailIndex)
                 setAllEmails(res.data.links[index].sendEmails)
-                setSendEmail(res.data.links[index].sendEmails[res.data.links[index].emailIndex])      
+                console.log(res.data.links[index].sendEmails)
+                setSendEmail(res.data.links[index].sendEmails[res.data.links[index].emailIndex][0])      
             })
         }
     
@@ -78,7 +79,7 @@ const [email, setEmail] = useState('')
 
    if(e.target.textContent !== "Delete"){
             setEmailIndex()
-            setSendEmail(allEmails[eIndex])
+            setSendEmail(allEmails[eIndex][0])
             setEmailIndex(eIndex)
 
             await axios.put('http://localhost:3000/changeEmail', {
@@ -184,9 +185,11 @@ const [email, setEmail] = useState('')
                         {allEmails.map((email, index) => {
                             return <div key={index} data-index={index} className="one-wrapper" onClick={(e) => changeEmail(index,e)}>
                             <div className="left-part">
-                                <p  key={index} onClick={() => setSendEmail(email)}>{email}</p>
-                                <p className="status-wrap">Status: <span>verified</span></p>
+                                <p  key={index} onClick={() => setSendEmail(email)}>{email[0]}</p>
+                                <p className="status-wrap">Status: {email[1] ? <span className="verified">verified</span> : <span className="unverified">unverified</span>} {index === emailIndex ? <span className="in-use-span">In Use</span> : null}</p>
+                            
                             </div>
+
                                 <p className="delete-wrap" onClick={() => deleteEmail(index)}>Delete</p>
                         </div>
                         })}

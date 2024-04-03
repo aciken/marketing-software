@@ -3,12 +3,14 @@ const User = require('../DataBase/mongoDB');
 const addMail = async (req, res) => {
     const { email, id, index } = req.body;
 
+    const emailArray = [email, false]
+
     try {
         const user = await User.findOne({ email:id });
         if(user){
             if (!user.links[index].sendEmails.includes(email)) {
                 user.markModified('links');
-                user.links[index].sendEmails.push(email);
+                user.links[index].sendEmails.push(emailArray);
                 await user.save();
                 res.json({message: 'Email added'});
             } else {
