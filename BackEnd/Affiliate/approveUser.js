@@ -9,6 +9,7 @@ const approveUser = async (req, res) => {
         if(user){
             const link = user.links[index];
             if(link){
+                const myMail = link.sendEmail;
                 const affiliateUser = link.affiliateUsers.find(user => user.userEmail === userEmail);
                 if(affiliateUser){
                     affiliateUser.approved = true;
@@ -17,7 +18,7 @@ const approveUser = async (req, res) => {
                         await user.save();
                         const msg = {
                             to: userEmail,
-                            from: 'adrianmarton2006@gmail.com',
+                            from: myMail,
                             subject: 'Affiliate link created',
                             text: `Your affiliate link for ${user.links[index].affiliateName} is ${affiliateUser.link}`,
                             html: `

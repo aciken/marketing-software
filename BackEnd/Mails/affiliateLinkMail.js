@@ -16,12 +16,13 @@ const affiliateLinkMail = async (req, res) => {
 
         const link = user.links[index];
         if(link){
+            const myMail = link.sendEmail;
             const affiliateUser = link.affiliateUsers.find(user => user.userEmail === userEmail);
             if(affiliateUser){
                if(affiliateUser.approved === true){
                 const msg = {
                     to: userEmail,
-                    from: 'adrianmarton2006@gmail.com',
+                    from: myMail,
                     subject: 'Affiliate link created',
                     text: `Your affiliate link for ${name} is ${affiliateUser.link}`,
                     html: `
@@ -41,7 +42,7 @@ const affiliateLinkMail = async (req, res) => {
                } else {
                 const msg = {
                     to: userEmail,
-                    from: 'adrianmarton2006@gmail.com',
+                    from: myMail,
                     subject: 'Waiting for approval',
                     text: `Your registration for affiliate link for ${name} is pending approval. You will be notified when it is approved.`,
                     html: `

@@ -37,8 +37,7 @@ const createAffiliateLink = async (req, res) => {
         EmailSentText,
         affiliateUsers: [],
         autoApprove,
-        emailIndex: 0,
-        sendEmails: [['adrianmarton2006@gmail.com', true]]
+        sendEmail: 'adrianmarton2006@gmail.com'
     };
 
     const user = await User.findOne({ email: id });

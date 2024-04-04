@@ -19,8 +19,7 @@ const editAffialiateLink = async (req, res) => {
         EmailSentText,
         affiliateUsers,
         autoApprove,
-        emailIndex,
-        sendEmails
+        sendEmail
     } = req.body;
 
 
@@ -41,8 +40,7 @@ const editAffialiateLink = async (req, res) => {
         EmailSentText,
         affiliateUsers,
         autoApprove,
-        emailIndex,
-        sendEmails
+        sendEmail
     };
 
     

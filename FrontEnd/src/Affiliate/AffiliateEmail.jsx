@@ -61,7 +61,7 @@ const [zip, setZip] = useState('')
                 setAllEmailsID(res.data.sendMails)
                 setEmailIndex(res.data.links[index].emailIndex)
                 console.log(res.data.links[index].sendEmails)
-                setSendEmail(res.data.links[index].sendEmails[res.data.links[index].emailIndex][0])    
+                setSendEmail(res.data.links[index].sendEmail)    
                 
                 axios.post('http://localhost:3000/getEmailFromID', {
                     id
@@ -187,6 +187,21 @@ const [zip, setZip] = useState('')
             }
 
         }
+
+        const changeSendEmail = async(funcEmail, funcVerified) => {
+            if(funcVerified !== false){
+                setSendEmail(funcEmail)
+                await axios.put('http://localhost:3000/changeEmail', {
+                id,index,funcEmail 
+            })
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => console.log(err))
+            } 
+
+
+        }
             
         
         
@@ -236,17 +251,32 @@ const [zip, setZip] = useState('')
                          <button type="submit" className="submit">Submit</button>
                          <button onClick={() => setAddInput(false)} className="cancle">Cancle</button>
                          </form> 
-                         : <p className="one-send-email" onClick={() => setVerifyEmail(true)}>Add Email +</p>}
-                        
+                         : <div>
+                            <p className="one-send-email" onClick={() => setVerifyEmail(true)}>Add Email +</p>
+                            <div className="one-wrapper first" onClick={() => changeSendEmail('adrianmarton2006@gmail.com', true)}>
+                                <div className="left-part" >
+                                    <p>adrianmarton2006@gmail.com</p>
+                                    <div className="bottom">
+                                    <span className="verified">verified</span>
+                                    {sendEmail == 'adrianmarton2006@gmail.com' ? <p>Selected</p> : null}
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>}
                         <p onClick={() => setPopup(false)} className="close-email-popup">x</p>
 
 
 
                     {allEmails.map((email, index) => {
-                        return <div key={index} data-index={index} className="one-wrapper">
+                        return <div key={index} data-index={index} className="one-wrapper" onClick={() => changeSendEmail(email.from.email, email.verified.status)}>
                         <div className="left-part">
                             <p  key={index}>{email.from.email}</p>
-                           {email.verified.status ? <span className="verified">verified</span> : <span className="unverified">unverified</span> }
+                            <div className="bottom">
+                            {email.verified.status ? <span className="verified">verified</span> : <span className="unverified">unverified</span>}
+                            {sendEmail == email.from.email ? <p>Selected</p> : null}
+                            </div>
                         
                         </div>
 

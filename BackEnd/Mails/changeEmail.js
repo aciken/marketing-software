@@ -1,16 +1,16 @@
 const User = require('../DataBase/mongoDB');
 
 const changeEmail = async (req, res) => {
-    const {eIndex,index, id } = req.body;
+    const {id, index, funcEmail} = req.body;
 
     try {
         const user = await User.findOne({email: id });
 
         if(user){
             user.markModified('links');
-            user.links[index].emailIndex = eIndex;
+            user.links[index].sendEmail = funcEmail;
             await user.save();
-            res.json({ emailIndex: user.links[index].emailIndex });
+            res.json(user.links[index].sendEmail);
         }
         
     } catch (error) {
