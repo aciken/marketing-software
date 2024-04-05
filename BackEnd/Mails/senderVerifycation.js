@@ -53,6 +53,7 @@ const VerificationEmail = async (req, res) => {
           console.log(response.body);
         })
           .catch(error => {
+            res.json(error.response.body.errors[0].message);
               console.error(error.response.body.errors);
           });
       }

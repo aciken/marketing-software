@@ -244,6 +244,29 @@ input[type="email"]{
 font-weight: 600;
 }
 
+.add-mail-form input{
+    background-color: #9c9c9c; 
+    display: inline-block;
+    padding: 0 16px 0 12px;
+    line-height: 30px;
+    height: 40px;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    background-color: #fff;
+    color: rgb(122, 122, 122);
+    box-shadow: none;
+    width: 300px;
+}
+
+.add-mail-btn{
+    cursor: pointer;
+    border: none;
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+
+}
 
 @keyframes slideInFromLeft {
     0% {

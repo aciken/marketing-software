@@ -71,7 +71,7 @@ app.put('/addMail', addMail);
 
 app.put('/changeEmail', changeEmail);
 
-app.put('/deleteEmail', deleteEmail);
+app.post('/deleteEmail', deleteEmail);
 
 app.post('/VerificationEmail', VerificationEmail);
 

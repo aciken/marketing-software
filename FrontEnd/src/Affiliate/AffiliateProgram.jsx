@@ -137,7 +137,7 @@ export function AffiliateProgram(){
                 <li><Link state={{index: index}} className='affiliate-link clicked' to="/main/affiliate-links/affiliate-program"  href="#">Affiliate Program</Link></li>
                 <li><Link state={{index: index}} className='affiliate-link' to="/main/affiliate-links/affiliates"  href="#">Affiliates</Link></li>
                 <li><Link state={{index: index}} className='affiliate-link' to="/main/affiliate-links/email"  href="#">Emails</Link></li>
-                <li><Link state={{index: index}} className='affiliate-link' to="/main/affiliate-links/transactions" onClick={(e) => e.preventDefault()} href="#">Transactions</Link></li>
+                <li><Link state={{index: index}} className='affiliate-link' to="/main/affiliate-links/transactions"  href="#">Transactions</Link></li>
                 <li><Link state={{index: index}} className='affiliate-link' to="/main/affiliate-links/balance" href="#">Balance</Link></li>
             </ul>
             </div>

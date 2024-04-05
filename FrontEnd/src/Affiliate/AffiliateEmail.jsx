@@ -6,7 +6,9 @@ import { useEffect, useState } from "react"
 
 export function AffiliateEmail(){
 
-const location  = useLocation();
+const location  = useLocation()
+
+const [whatError, setWhatError] = useState('')
 
 const [sendEmail, setSendEmail] = useState('')
 const [allEmails, setAllEmails] = useState([])
@@ -57,6 +59,7 @@ const [zip, setZip] = useState('')
                 id
             })
             .then(res => {
+                console.log(res.data.sendMail)
                 console.log(res.data.sendmails)
                 setAllEmailsID(res.data.sendMails)
                 setEmailIndex(res.data.links[index].emailIndex)
@@ -81,6 +84,7 @@ const [zip, setZip] = useState('')
     const addPopup = () => {
         setPopup(!popup)
         console.log(popup)
+        setWhatError("")
     }
 
     const addMail = async(e) => {
@@ -93,14 +97,17 @@ const [zip, setZip] = useState('')
         })
         .then(res => {
             console.log(res.data)
-            const emailID = res.data.id
-            axios.put('http://localhost:3000/addMailID', {
-                id,index,emailID
-            })
-            .then(res =>{
-                console.log(res.data);
-            })
-            
+            if(res.data.id === undefined){
+                setWhatError(res.data)
+            } else{
+                const emailID = res.data.id
+                axios.put('http://localhost:3000/addMailID', {
+                    id,index,emailID
+                })
+                .then(res =>{
+                    console.log(res.data);
+                })
+            }    
         })
         .catch(err => console.log(err))
     }
@@ -151,55 +158,36 @@ const [zip, setZip] = useState('')
         }
         }
 
-        const deleteEmail = async(eIndex) => {
+        const deleteEmail = async(mailID, mail) => {
 
-
-            if(eIndex === emailIndex){
-                console.log("Can't delete this email, it's in use")
-            } else if(eIndex == 0){
-                console.log("Can't delete the default email")
+            if(mail != sendEmail){
+                console.log(mailID)
+                await axios.post('http://localhost:3000/deleteEmail', {
+                mailID,mail,id,index       
+            })
+            .then(res => {
+                console.log(res.data); 
+            })
+            .catch(err => console.log(err))
             }
-            else{
 
-                await axios.put('http://localhost:3000/deleteEmail', {
-                    eIndex,
-                    index,
-                    id
-                })
-                .then(res => {
-                    console.log(eIndex, emailIndex)
-                    if(eIndex < emailIndex){
-                        setEmailIndex(emailIndex - 1)
-                        axios.put('http://localhost:3000/changeEmail', {
-                            eIndex: emailIndex - 1,
-                            index,
-                            id
-                        })
-                        .then(res => {
-                            console.log(res.data)
-                        })
-                        .catch(err => console.log(err))
-                    }
-                    setAllEmails(res.data)
-                    console.log(res.data)
-                })   
-                .catch(err => console.log(err))
-            }
 
         }
 
-        const changeSendEmail = async(funcEmail, funcVerified) => {
-            if(funcVerified !== false){
-                setSendEmail(funcEmail)
-                await axios.put('http://localhost:3000/changeEmail', {
-                id,index,funcEmail 
-            })
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => console.log(err))
-            } 
-
+        const changeSendEmail = async(e,funcEmail, funcVerified) => {
+            console.log(e.target.textContent)
+            if(e.target.textContent !== "Delete"){
+                if(funcVerified !== false){
+                    setSendEmail(funcEmail)
+                    await axios.put('http://localhost:3000/changeEmail', {
+                    id,index,funcEmail 
+                })
+                .then(res => {
+                    console.log(res.data)
+                })
+                .catch(err => console.log(err))
+                } 
+            }
 
         }
             
@@ -253,7 +241,7 @@ const [zip, setZip] = useState('')
                          </form> 
                          : <div>
                             <p className="one-send-email" onClick={() => setVerifyEmail(true)}>Add Email +</p>
-                            <div className="one-wrapper first" onClick={() => changeSendEmail('adrianmarton2006@gmail.com', true)}>
+                            <div className="one-wrapper first" onClick={(e) => changeSendEmail(e,'adrianmarton2006@gmail.com', true)}>
                                 <div className="left-part" >
                                     <p>adrianmarton2006@gmail.com</p>
                                     <div className="bottom">
@@ -270,7 +258,7 @@ const [zip, setZip] = useState('')
 
 
                     {allEmails.map((email, index) => {
-                        return <div key={index} data-index={index} className="one-wrapper" onClick={() => changeSendEmail(email.from.email, email.verified.status)}>
+                        return <div key={index} data-index={index} className="one-wrapper" onClick={(e) => changeSendEmail(e,email.from.email, email.verified.status)}>
                         <div className="left-part">
                             <p  key={index}>{email.from.email}</p>
                             <div className="bottom">
@@ -280,7 +268,7 @@ const [zip, setZip] = useState('')
                         
                         </div>
 
-                            <p className="delete-wrap" onClick={() => deleteEmail(index)}>Delete</p>
+                            <p className="delete-wrap" onClick={() => deleteEmail(email.id, email.from.email)}>Delete</p>
                     </div>
                     })}
 
@@ -301,8 +289,7 @@ const [zip, setZip] = useState('')
                     </form>
                 </div> : 
                 <div className="popup-box email">
-                    <p className="verify-email">Verify Email</p>
-                    <form onSubmit={addMail}>
+                    <form onSubmit={addMail} className="add-mail-form">
                     <input type="text" placeholder="Nickname" onChange={(e) => setNickname(e.target.value)} required/>
                     <input type="email" name="" id="" placeholder="Email" onChange={(e) => setFromEmail(e.target.value)} required/>
                     <input type="text" placeholder="From Name" onChange={(e) => setFromName(e.target.value)} required/>
@@ -313,11 +300,12 @@ const [zip, setZip] = useState('')
                     <input type="text" placeholder="Country" onChange={(e) => setCountry(e.target.value)} required/>
                     <input type="text" placeholder="City" onChange={(e) => setCity(e.target.value)} required/>
                     <input type="text" placeholder="Zip" onChange={(e) => setZip(e.target.value)} required />
-                    <button type="Submit">Submit</button>
+                    <p>{whatError}</p>
+                    <button type="Submit" className="add-mail-btn">Submit</button>
                     </form>
-                    <p className="verify-email-text">We have sent a verification email to {sendEmail}. Please verify your email address to use it.</p>
+                 
 
-                    <p onClick={() => setVerifyEmail(false)} className="close-email-popup"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>arrow-left-thin</title><path d="M10.05 16.94V12.94H18.97L19 10.93H10.05V6.94L5.05 11.94Z" /></svg></p>
+                    <p onClick={() => {setVerifyEmail(false); setWhatError("")}} className="close-email-popup"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>arrow-left-thin</title><path d="M10.05 16.94V12.94H18.97L19 10.93H10.05V6.94L5.05 11.94Z" /></svg></p>
                 </div> }
 
     
