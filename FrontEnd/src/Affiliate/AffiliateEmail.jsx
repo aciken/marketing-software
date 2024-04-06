@@ -42,6 +42,13 @@ const [zip, setZip] = useState('')
 
 //verify email
 
+
+    const [selectedEmailBtn1, setSelectedEmailBtn1] = useState('selected-email-btn');
+    const [selectedEmailBtn2, setSelectedEmailBtn2] = useState('');
+    const [selectedEmailBtn3, setSelectedEmailBtn3] = useState('');
+
+
+
     const index = location.state.index 
 
     let id;
@@ -106,6 +113,14 @@ const [zip, setZip] = useState('')
                 })
                 .then(res =>{
                     console.log(res.data);
+                    setVerifyEmail(false)
+                    axios.post('http://localhost:3000/getEmailFromID', {
+                        id
+                    })
+                    .then(res => {
+                        console.log(res.data) 
+                        setAllEmails(res.data)
+                })
                 })
             }    
         })
@@ -167,6 +182,20 @@ const [zip, setZip] = useState('')
             })
             .then(res => {
                 console.log(res.data); 
+                if(res.data.length === 0){
+                    setAllEmails([])
+                } else {
+                    axios.post('http://localhost:3000/getEmailFromID', {
+                        id
+                    })
+                    .then(res => {
+                        console.log(res.data.length)
+                        console.log(res.data)
+                        setAllEmails(res.data)
+                        console.log(allEmails)
+                    })
+                }
+
             })
             .catch(err => console.log(err))
             }
@@ -192,8 +221,6 @@ const [zip, setZip] = useState('')
         }
             
         
-        
-
 
     
     return(
@@ -317,6 +344,30 @@ const [zip, setZip] = useState('')
                     <label htmlFor="send-email">Send Email:</label>
                     <input type="email" placeholder="Email" name="send-email"  value={sendEmail} readOnly={true} onFocus={(e) => e.target.blur()} onClick={(e) => addPopup()}/>
                 </form>
+                
+                <div className="email-wrapper">
+                        <div className="email-icons">
+                            <button className={selectedEmailBtn1} onClick={() => {setSelectedEmailBtn1('selected-email-btn'); setSelectedEmailBtn2(''); setSelectedEmailBtn3('')}}>Auto Approve Email</button>
+                            <button className={selectedEmailBtn2} onClick={() => {setSelectedEmailBtn2('selected-email-btn'); setSelectedEmailBtn1(''); setSelectedEmailBtn3('')}}>Waiting for Approval Email</button>
+                            <button className={selectedEmailBtn3} onClick={() => {setSelectedEmailBtn3('selected-email-btn'); setSelectedEmailBtn2(''); setSelectedEmailBtn1('')}}>Approved Email</button>
+
+
+                                
+                        </div>
+                        {selectedEmailBtn1 === 'selected-email-btn' ? <div className="email-box">
+                                <p className="email-title">Auto Approve Email</p>
+                                <p className="email-text">This email is sent to the affiliate when they are approved to the program.</p>
+                            </div> : null}
+                            {selectedEmailBtn2 === 'selected-email-btn' ? <div className="email-box">
+                                <p className="email-title">Waiting for Approval Email</p>
+                                <p className="email-text">This email is sent to the affiliate when they are waiting for approval.</p>
+                            </div> : null}
+                            {selectedEmailBtn3 === 'selected-email-btn' ? <div className="email-box">
+                                <p className="email-title">Approved Email</p>
+                                <p className="email-text">This email is sent to the affiliate when they are approved to the program.</p>
+                            </div> : null}
+
+                </div>
                 </div>
         </div>
         </div>

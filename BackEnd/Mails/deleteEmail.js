@@ -9,7 +9,20 @@ const deleteEmail = async (req, res) => {
 
     try{
 
-
+      const user = await User.findOne({ email: id });
+      console.log(`First User: ${user}`)
+      console.log('USERRR: ', user.sendMails)
+      if (user && Array.isArray(user.sendMails)) {
+        const index = user.sendMails.indexOf(mailID);
+        console.log(`INDEX: ${index}`)
+        if (index > -1) {
+            user.sendMails.splice(index, 1);
+            user.markModified('sendMails');
+            console.log(`USER: ${user.sendMails}`);
+            res.json(user.sendMails)
+            user.save();
+        }
+    }
 
 const request = {
   url: `/v3/verified_senders/${mailID}`,
@@ -18,17 +31,9 @@ const request = {
 
 client.request(request)
   .then(([response, body]) => {
-    const user = User.findOne({ email: id });
-    if (user) {
-        const index = user.sendEmail.indexOf(mailID);
-        if (index > -1) {
-            user.sendMails.splice(index, 1);
-            user.save();
-        }
-    }
     console.log(response.statusCode);
     console.log(response.body);
-    res.json(response.body);
+
   })
   .catch(error => {
     console.error(error);

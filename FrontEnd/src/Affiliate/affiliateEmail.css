@@ -268,6 +268,45 @@ font-weight: 600;
 
 }
 
+.email-wrapper{
+    padding-top: 30px;
+    border-top: 1px solid #999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.email-icons{
+    display: flex;
+    gap: 10px;
+}
+
+.email-icons button{
+    cursor: pointer;
+    border: 2px solid #6366f1;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+    transition: .3s;
+}
+
+.email-icons button:hover{
+    background-color: #6365f12f;
+
+
+}
+
+.email-icons .selected-email-btn{
+    background-color:#6365f198;
+    color: white;
+}
+
+.email-icons button.selected-email-btn:hover{
+    background-color:#6365f198;
+    color: white;
+}
+
 @keyframes slideInFromLeft {
     0% {
         scale: 0;
