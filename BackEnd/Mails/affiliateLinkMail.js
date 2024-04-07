@@ -26,7 +26,7 @@ const affiliateLinkMail = async (req, res) => {
                     subject: 'Affiliate link created',
                     text: `Your affiliate link for ${name} is ${affiliateUser.link}`,
                     html: `
-                        <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; backgroud-color: white">
+                        <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; backgroud-color: red">
                             <h2 style="color: #3b82f6;">Affiliate Link Created</h2>
                             <p>Hello,</p>
                             <p>Your affiliate link for <strong>${name}</strong> has been created. Here is your link:</p>
@@ -46,14 +46,16 @@ const affiliateLinkMail = async (req, res) => {
                     subject: 'Waiting for approval',
                     text: `Your registration for affiliate link for ${name} is pending approval. You will be notified when it is approved.`,
                     html: `
-                        <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; backgroud-color: white;">
-                            <h2 style="color: #3b82f6;">Waiting for Approval</h2>
-                            <p>Hello,</p>
-                            <p>Your registration for affiliate link for <strong>${name}</strong> is pending approval. You will be notified when it is approved.</p>
-                            <p>Thank you for your patience!</p>
-                            <p>Best,</p>
-                            <p>Adrian</p>
-                        </div>
+                    <div style="display: flex; justify-content: center; align-items: center; font-family: Arial, sans-serif; padding: 100px;height: 100%; color: #333; background-color: white;">
+                    <div style="background-color: red; padding: 20px; margin: auto;">
+                        <h2 style="color: #3b82f6;">Waiting for Approval</h2>
+                        <p>Hello,</p>
+                        <p>Your registration for affiliate link for <strong>${name}</strong> is pending approval. You will be notified when it is approved.</p>
+                        <p>Thank you for your patience!</p>
+                        <p>Best,</p>
+                        <p>Adrian</p>
+                    </div>
+                </div>
                     `,
                 };
                 await sgMail.send(msg);

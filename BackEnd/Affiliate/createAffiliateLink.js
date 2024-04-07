@@ -37,7 +37,10 @@ const createAffiliateLink = async (req, res) => {
         EmailSentText,
         affiliateUsers: [],
         autoApprove,
-        sendEmail: 'adrianmarton2006@gmail.com'
+        sendEmail: 'adrianmarton2006@gmail.com',
+        SendEmailText1:'Your affiliate link for ' + affiliateName + ' has been created. Here is your link: ' + productLink + ' Thank you for using our service! Best, Adrian',
+        SendEmailText2: 'Your registration for affiliate link for ' + affiliateName + ' is pending approval. You will be notified when it is approved. Thank you for your patience! Best, Adrian',
+        SendEmailText3: 'Your registration for affiliate link for ' + affiliateName + 'has been approved and your affiliate link is: ' + productLink + ' Thank you for using our service! Best, Adrian',
     };
 
     const user = await User.findOne({ email: id });

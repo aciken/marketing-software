@@ -22,6 +22,9 @@ const [popup, setPopup] = useState(false)
 
 const [email, setEmail] = useState('')
 
+
+const [affiliateName , setAffiliateName] = useState('')
+
 const [allEmailsID, setAllEmailsID] = useState([])
 
 
@@ -41,6 +44,21 @@ const [zip, setZip] = useState('')
 
 
 //verify email
+
+
+
+
+
+
+// Send Email Text
+
+const [sendEmailText1, setSendEmailText1] = useState('')
+const [sendEmailText2, setSendEmailText2] = useState('')
+const [sendEmailText3, setSendEmailText3] = useState('')
+
+// Send Email Text
+
+
 
 
     const [selectedEmailBtn1, setSelectedEmailBtn1] = useState('selected-email-btn');
@@ -71,7 +89,11 @@ const [zip, setZip] = useState('')
                 setAllEmailsID(res.data.sendMails)
                 setEmailIndex(res.data.links[index].emailIndex)
                 console.log(res.data.links[index].sendEmails)
-                setSendEmail(res.data.links[index].sendEmail)    
+                setSendEmail(res.data.links[index].sendEmail)  
+                setSendEmailText1(res.data.links[index].SendEmailText1)
+                setSendEmailText2(res.data.links[index].SendEmailText2)
+                setSendEmailText3(res.data.links[index].SendEmailText3)    
+                setAffiliateName(res.data.links[index].affiliateName)  
                 
                 axios.post('http://localhost:3000/getEmailFromID', {
                     id
@@ -219,6 +241,24 @@ const [zip, setZip] = useState('')
             }
 
         }
+
+        const changeEmailIcon = (num) =>{
+            if(num === 1){
+                setSelectedEmailBtn1('selected-email-btn')
+                setSelectedEmailBtn2('')
+                setSelectedEmailBtn3('')
+            }
+            if(num === 2){
+                setSelectedEmailBtn2('selected-email-btn')
+                setSelectedEmailBtn1('')
+                setSelectedEmailBtn3('')
+            }
+            if(num === 3){
+                setSelectedEmailBtn3('selected-email-btn')
+                setSelectedEmailBtn2('')
+                setSelectedEmailBtn1('')
+            }
+        }
             
         
 
@@ -347,24 +387,38 @@ const [zip, setZip] = useState('')
                 
                 <div className="email-wrapper">
                         <div className="email-icons">
-                            <button className={selectedEmailBtn1} onClick={() => {setSelectedEmailBtn1('selected-email-btn'); setSelectedEmailBtn2(''); setSelectedEmailBtn3('')}}>Auto Approve Email</button>
-                            <button className={selectedEmailBtn2} onClick={() => {setSelectedEmailBtn2('selected-email-btn'); setSelectedEmailBtn1(''); setSelectedEmailBtn3('')}}>Waiting for Approval Email</button>
-                            <button className={selectedEmailBtn3} onClick={() => {setSelectedEmailBtn3('selected-email-btn'); setSelectedEmailBtn2(''); setSelectedEmailBtn1('')}}>Approved Email</button>
+                            <button className={selectedEmailBtn1} onClick={() => changeEmailIcon(1)}>Auto Approve Email</button>
+                            <button className={selectedEmailBtn2} onClick={() => changeEmailIcon(2)}>Waiting for Approval Email</button>
+                            <button className={selectedEmailBtn3} onClick={() => changeEmailIcon(3)}>Approved Email</button>
 
 
                                 
                         </div>
                         {selectedEmailBtn1 === 'selected-email-btn' ? <div className="email-box">
-                                <p className="email-title">Auto Approve Email</p>
-                                <p className="email-text">This email is sent to the affiliate when they are approved to the program.</p>
+                        <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px', color: '#333', backgroundColor: 'white' }}>
+            <h2 style={{ color: '#3b82f6' }}>Affiliate Link Created</h2>
+            <p>Hello,</p>
+            <p>Your affiliate link for <strong>{affiliateName}</strong> has been created. Here is your link:</p>
+            <p><a href="#" style={{ color: '#3b82f6' }} onClick={(e) => e.preventDefault()}>https://www.youtube/your-keyID</a></p>
+            <p>Thank you for using our service!</p>
+            <p>Best,</p>
+            <p>Adrian</p>
+        </div>
                             </div> : null}
                             {selectedEmailBtn2 === 'selected-email-btn' ? <div className="email-box">
-                                <p className="email-title">Waiting for Approval Email</p>
-                                <p className="email-text">This email is sent to the affiliate when they are waiting for approval.</p>
+                            <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px', color: '#333', backgroundColor: 'white' }}>
+            <h2 style={{ color: '#3b82f6' }}>Waiting for Approval</h2>
+            <p>Hello,</p>
+            <p>Your registration for affiliate link for <strong>{affiliateName}</strong> is pending approval. You will be notified when it is approved.</p>
+            <p>Thank you for your patience!</p>
+            <p>Best,</p>
+            <p>Adrian</p>
+        </div>
                             </div> : null}
                             {selectedEmailBtn3 === 'selected-email-btn' ? <div className="email-box">
                                 <p className="email-title">Approved Email</p>
                                 <p className="email-text">This email is sent to the affiliate when they are approved to the program.</p>
+                                <textarea name="" id="" cols="30" rows="10" value={sendEmailText3}></textarea>
                             </div> : null}
 
                 </div>
