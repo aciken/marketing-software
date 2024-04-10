@@ -9,8 +9,8 @@
 }
 
 @font-face {
-    font-family: 'AnekTamil-Regular';
-    src: url('../assets/AnekTamil-Regular.ttf');
+    font-family: 'Prompt-Regular';
+    src: url('../assets/Prompt-Regular.ttf');
 }
 
 
@@ -20,15 +20,18 @@
     background-color:#ffffff;
     height: 100vh;
     display: flex;
-    font-family: 'AnekTamil-Regular';
+    font-family: sans-serif;
 }
 
 .loged-nav{
-
     flex: 10%;
+    position: fixed;
+    margin-right: 200px;
+    width: 200px;
 }
 
 .main-part{
+    margin-left: 200px;
     flex: 86%;
 }
 

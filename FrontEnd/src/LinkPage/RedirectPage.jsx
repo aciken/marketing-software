@@ -16,7 +16,12 @@ export function RedirectPage() {
                     })
         .then(res => {
                 console.log(res.data);
-                window.location.href = res.data.linkRedirect
+
+                const affiliateID = res.data.genKey;
+                const url = new URL(res.data.linkRedirect);
+                url.searchParams.append('affiliateID', affiliateID);
+
+                window.location.href = url.toString();
         })
         .catch(error => {
                 console.log(error);
