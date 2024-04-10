@@ -24,6 +24,7 @@ const deleteEmail = require('./Mails/deleteEmail');
 const VerificationEmail = require('./Mails/senderVerifycation');
 const addMailID = require('./Mails/addMailID');
 const getEmailFromID = require('./Mails/getEmailFromID');
+const trackingB = require('./track/trackingBack');
 
 
 app.use(cors());
@@ -79,7 +80,7 @@ app.put('/addMailID', addMailID);
 
 app.post('/getEmailFromID', getEmailFromID);
 
-
+app.get('/tracking', trackingB);
 
 
 
